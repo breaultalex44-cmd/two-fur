@@ -17,7 +17,9 @@
                             blue: '#1D4ED8',
                             silver: '#E2E8F0',
                             gold: '#FBBF24',
-                            dark: '#050A14'
+                            dark: '#050A14',
+                            purple: '#7C3AED',
+                            teal: '#0D9488'
                         }
                     },
                     fontFamily: {
@@ -45,13 +47,6 @@
             background: #8A0B20; 
         }
 
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(to right, #ffffff, #E2E8F0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
         /* Calendar Cell Styles */
         .calendar-cell {
             transition: all 0.2s ease-in-out;
@@ -73,6 +68,8 @@
         .indicator-school { background-color: #1D4ED8; }
         .indicator-adult { background-color: #FBBF24; }
         .indicator-global { background-color: #94A3B8; }
+        .indicator-election { background-color: #7C3AED; }
+        .indicator-custom { background-color: #0D9488; }
         .indicator-moon { background-color: #E2E8F0; border: 1px solid #475569; }
         
         .bg-subtle-pattern {
@@ -84,22 +81,17 @@
 <body class="bg-brand-dark text-slate-200 h-screen flex flex-col font-sans overflow-hidden bg-subtle-pattern">
 
     <header class="bg-brand-navy border-b-4 border-brand-red shadow-xl shrink-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
             
             <div class="flex items-center gap-4">
                 <!-- SVG Logo: Two-Fur Case -->
                 <div class="w-16 h-12 relative flex-shrink-0">
                     <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-lg" xmlns="http://www.w3.org/2000/svg">
-                        <!-- Case Box -->
                         <rect x="5" y="15" width="90" height="60" rx="4" fill="#C8102E" stroke="#8A0B20" stroke-width="2"/>
                         <rect x="5" y="15" width="90" height="15" fill="#8A0B20" opacity="0.5"/>
-                        <!-- White Label Area -->
                         <rect x="15" y="35" width="70" height="30" rx="2" fill="#FFFFFF"/>
-                        <!-- Maple Leaf Accent -->
                         <path d="M50 40 L52 45 L57 44 L54 49 L59 52 L54 54 L55 60 L50 56 L45 60 L46 54 L41 52 L46 49 L43 44 L48 45 Z" fill="#C8102E"/>
-                        <!-- Text -->
                         <text x="50" y="54" font-family="Impact, sans-serif" font-size="14" fill="#0A1526" text-anchor="middle" font-weight="bold">TWO-FUR</text>
-                        <!-- 24 Badge -->
                         <circle cx="80" cy="25" r="9" fill="#FBBF24" stroke="#FFFFFF" stroke-width="1"/>
                         <text x="80" y="28" font-family="Arial, sans-serif" font-size="8" fill="#0A1526" text-anchor="middle" font-weight="bold">24</text>
                     </svg>
@@ -109,23 +101,27 @@
                     <h1 class="text-2xl font-display tracking-wide text-white uppercase italic drop-shadow-md">
                         Two-Fur <span class="text-brand-red">Calendar</span>
                     </h1>
-                    <p class="text-xs text-brand-silver/70 font-medium">Premium Events & Holidays Across Canada</p>
+                    <p class="text-xs text-brand-silver/70 font-medium">Pan-Canadian Holidays, Global Events & World Elections</p>
                 </div>
             </div>
 
-            <!-- Header Controls -->
-            <div class="flex items-center gap-4">
-                <button onclick="changeMonth(-1)" class="p-2 rounded hover:bg-white/10 transition text-brand-silver">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </button>
-                <h2 id="current-month-display" class="text-xl font-bold text-white w-40 text-center uppercase tracking-widest">Oct 2026</h2>
-                <button onclick="changeMonth(1)" class="p-2 rounded hover:bg-white/10 transition text-brand-silver">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                </button>
-                <button onclick="goToToday()" class="ml-2 px-4 py-1.5 bg-brand-red hover:bg-brand-darkred text-white text-sm font-bold rounded shadow transition border border-red-400/30">
-                    Today
+            <!-- Search and Action Controls -->
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-end flex-wrap">
+                <!-- Search Bar -->
+                <div class="relative">
+                    <input type="text" id="event-search" oninput="handleSearch(this.value)" placeholder="Search holidays, elections..." class="bg-brand-dark/80 text-xs text-white border border-slate-700 rounded-lg px-3 py-2 pl-8 focus:outline-none focus:border-brand-red w-48 sm:w-60">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <!-- Search Results Dropdown -->
+                    <div id="search-dropdown" class="absolute left-0 right-0 mt-1 bg-brand-navy border border-slate-700 rounded-lg shadow-2xl max-h-60 overflow-y-auto hidden z-50"></div>
+                </div>
+
+                <!-- Create Log Button -->
+                <button onclick="openModal()" class="px-3.5 py-2 bg-brand-teal hover:bg-teal-700 text-white text-xs font-bold rounded-lg shadow transition flex items-center gap-1.5 border border-teal-500/30">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                    Create Log
                 </button>
             </div>
+
         </div>
     </header>
 
@@ -134,13 +130,30 @@
         <!-- Left: Calendar Area -->
         <div class="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto">
             
-            <!-- Legend -->
-            <div class="flex flex-wrap gap-4 mb-4 text-xs font-semibold uppercase tracking-wider text-slate-400 bg-brand-navy/50 p-3 rounded-lg border border-slate-800">
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-stat"></span> Statutory</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-school"></span> School Breaks</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-adult"></span> Adult/Social</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-global"></span> Global/Events</div>
-                <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-moon"></span> Moon Phase</div>
+            <!-- Month Nav & Legend Bar -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 bg-brand-navy/50 p-3 rounded-lg border border-slate-800">
+                <div class="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-stat"></span> Stat</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-school"></span> School</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-adult"></span> Social</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-global"></span> Global</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-election"></span> Elections</div>
+                    <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-custom"></span> Custom Log</div>
+                </div>
+
+                <!-- Month Navigation Controls -->
+                <div class="flex items-center gap-3">
+                    <button onclick="changeMonth(-1)" class="p-1.5 rounded hover:bg-white/10 transition text-brand-silver">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <h2 id="current-month-display" class="text-lg font-bold text-white w-40 text-center uppercase tracking-widest">Oct 2026</h2>
+                    <button onclick="changeMonth(1)" class="p-1.5 rounded hover:bg-white/10 transition text-brand-silver">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
+                    <button onclick="goToToday()" class="ml-2 px-3 py-1 bg-brand-red hover:bg-brand-darkred text-white text-xs font-bold rounded shadow transition border border-red-400/30">
+                        Today
+                    </button>
+                </div>
             </div>
 
             <!-- Days of Week Header -->
@@ -158,7 +171,6 @@
         <aside class="w-full sm:w-96 bg-brand-navy border-l border-slate-800 flex flex-col shadow-2xl z-20 shrink-0">
             
             <div class="p-6 border-b border-slate-800 bg-gradient-to-b from-brand-navy to-brand-dark relative overflow-hidden">
-                <!-- Decorative background leaf -->
                 <svg class="absolute -bottom-10 -right-10 w-48 h-48 text-brand-red opacity-5" viewBox="0 0 100 100" fill="currentColor">
                      <path d="M50 10 L55 30 L75 25 L65 45 L85 55 L65 65 L70 90 L50 75 L30 90 L35 65 L15 55 L35 45 L25 25 L45 30 Z"/>
                 </svg>
@@ -168,78 +180,149 @@
             </div>
 
             <div id="event-list" class="flex-1 overflow-y-auto p-4 space-y-4">
-                <!-- Dynamically populated -->
                 <div class="text-center text-slate-500 mt-10 italic">
-                    Click on a date to view premium events, holidays, and phases.
+                    Click on any date to view holidays, elections, moon phases, and custom logs.
                 </div>
             </div>
             
             <div class="p-4 border-t border-slate-800 bg-brand-dark/50 text-center">
-                <p class="text-xs text-slate-500">Curated for non-partisan, pan-Canadian relevance.</p>
+                <p class="text-xs text-slate-500">Pan-Canadian & Global Intelligence Hub 2026–2027.</p>
             </div>
         </aside>
 
     </main>
 
+    <!-- CREATE LOG MODAL -->
+    <div id="log-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-brand-navy border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <h3 class="text-xl font-display text-white mb-4 flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-brand-teal"></span> Create Custom Log & Reminder
+            </h3>
+
+            <form id="log-form" onsubmit="saveCustomLog(event)" class="space-y-4 text-xs">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Event Title</label>
+                    <input type="text" id="log-title" required placeholder="e.g. Board Meeting / Anniversary" class="w-full bg-brand-dark border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-teal">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Date</label>
+                        <input type="date" id="log-date" required class="w-full bg-brand-dark border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-teal">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Category / Tag</label>
+                        <select id="log-category" class="w-full bg-brand-dark border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-teal">
+                            <option value="custom">Custom Log</option>
+                            <option value="stat">Statutory / Priority</option>
+                            <option value="adult">Social / Personal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Details & Caption</label>
+                    <textarea id="log-caption" rows="3" placeholder="Add detailed notes, agenda, or location..." class="w-full bg-brand-dark border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-teal"></textarea>
+                </div>
+
+                <div class="flex items-center gap-3 bg-brand-dark/50 p-3 rounded-lg border border-slate-800">
+                    <input type="checkbox" id="log-reminder" class="w-4 h-4 accent-brand-teal rounded">
+                    <div>
+                        <label for="log-reminder" class="font-bold text-white cursor-pointer">Enable Smart Reminder Badge</label>
+                        <p class="text-[10px] text-slate-400">Highlights this log prominently on the calendar grid.</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-2">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2 bg-brand-teal hover:bg-teal-700 text-white font-bold rounded-lg transition shadow">Save Log</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script>
         // State
-        let currentDate = new Date(2026, 9, 9); // Context date: Oct 9, 2026
+        let currentDate = new Date(2026, 9, 9); // Oct 9, 2026 default context
         let selectedDate = new Date(2026, 9, 9);
         
-        // Comprehensive Event Data (Mocked for demonstration across categories)
-        // Categories: 'stat', 'school', 'adult', 'global', 'moon'
+        // Comprehensive Event Data covering 2026 & 2027 (Statutory, Provincial, Global, Elections)
         const eventData = [
-            // Statutory Holidays (Canada)
-            { date: '01-01', type: 'stat', title: 'New Year\'s Day', desc: 'Ringing in the new year across the True North.' },
-            { date: '02-16', type: 'stat', title: 'Family Day', desc: 'A day to celebrate family life (observed in most provinces).' },
-            { date: '04-03', type: 'stat', title: 'Good Friday', desc: 'Statutory holiday observed nationwide.' },
-            { date: '05-18', type: 'stat', title: 'Victoria Day', desc: 'Celebrating the sovereign\'s birthday. Often known as the "May Two-Four" weekend.' },
-            { date: '07-01', type: 'stat', title: 'Canada Day', desc: 'National day of Canada, celebrating the anniversary of Confederation.' },
-            { date: '09-07', type: 'stat', title: 'Labour Day', desc: 'Celebrating the achievements of workers.' },
-            { date: '10-12', type: 'stat', title: 'Thanksgiving', desc: 'A day to give thanks for the autumn harvest.' },
-            { date: '11-11', type: 'stat', title: 'Remembrance Day', desc: 'Honouring armed forces members who died in the line of duty.' },
-            { date: '12-25', type: 'stat', title: 'Christmas Day', desc: 'Annual holiday.' },
-            { date: '12-26', type: 'stat', title: 'Boxing Day', desc: 'Post-Christmas statutory holiday in Ontario.' },
+            // --- 2026 CANADIAN STATUTORY & PROVINCIAL HOLIDAYS ---
+            { date: '2026-01-01', type: 'stat', title: "New Year's Day", desc: 'Ringing in the new year across the True North.' },
+            { date: '2026-02-16', type: 'stat', title: 'Family Day / Louis Riel / Heritage Day', desc: 'Observed across MB (Louis Riel), PE (Islander Day), AB, BC, NB, ON, SK (Family Day), NS (Heritage Day).' },
+            { date: '2026-04-03', type: 'stat', title: 'Good Friday', desc: 'Statutory holiday observed nationwide.' },
+            { date: '2026-04-06', type: 'global', title: 'Easter Monday', desc: 'Federal holiday and observed in several provinces.' },
+            { date: '2026-05-18', type: 'stat', title: 'Victoria Day / National Patriots\' Day', desc: 'Celebrating sovereign\'s birthday / Patriotes history in Quebec.' },
+            { date: '2026-06-21', type: 'global', title: 'National Indigenous Peoples Day', desc: 'Recognizing First Nations, Inuit, and Métis cultures (NT, YT).' },
+            { date: '2026-06-24', type: 'stat', title: 'Saint-Jean-Baptiste Day', desc: 'Quebec\'s National Holiday celebrating Québécois culture.' },
+            { date: '2026-07-01', type: 'stat', title: 'Canada Day & Memorial Day (NL)', desc: 'Anniversary of Confederation & Beaumont-Hamel remembrance.' },
+            { date: '2026-07-09', type: 'global', title: 'Nunavut Day', desc: 'Marking the Nunavut Land Claims Agreement.' },
+            { date: '2026-08-03', type: 'stat', title: 'Civic Holiday / BC Day / Heritage Day', desc: 'Summer long weekend across ON, BC, SK, NB, NT, NU, NS.' },
+            { date: '2026-09-07', type: 'stat', title: 'Labour Day', desc: 'Honouring workers and the labour movement.' },
+            { date: '2026-09-30', type: 'stat', title: 'National Day for Truth & Reconciliation', desc: 'Honouring residential school survivors and advancing reconciliation.' },
+            { date: '2026-10-12', type: 'stat', title: 'Thanksgiving Day', desc: 'Canadian autumn harvest celebration of gratitude.' },
+            { date: '2026-11-11', type: 'stat', title: 'Remembrance Day', desc: 'Honouring armed forces members who served.' },
+            { date: '2026-12-25', type: 'stat', title: 'Christmas Day', desc: 'National statutory holiday.' },
+            { date: '2026-12-26', type: 'stat', title: 'Boxing Day', desc: 'Post-Christmas statutory holiday.' },
 
-            // School Breaks (Ontario approximations for 2026)
-            { date: '03-16', type: 'school', title: 'March Break Begins', desc: 'Traditional week off for Ontario primary and secondary schools.', rangeEnd: '03-20' },
-            { date: '12-21', type: 'school', title: 'Winter Break Begins', desc: 'Holiday recess for students across Ontario.', rangeEnd: '12-31' },
+            // --- 2026 GLOBAL ELECTIONS & EVENTS ---
+            { date: '2026-10-04', type: 'election', title: 'Brazil General Election (1st round)', desc: 'Presidential, Chamber of Deputies and Senate elections in Brazil.' },
+            { date: '2026-10-05', type: 'election', title: 'Québec General Election', desc: 'Provincial electoral vote in Québec.' },
+            { date: '2026-10-17', type: 'election', title: 'B.C. Local Elections', desc: 'Municipal and local governance votes across British Columbia.' },
+            { date: '2026-10-25', type: 'election', title: 'Bulgaria Presidential / Serbia & Brazil (2nd round)', desc: 'Major European and South American electoral showdowns.' },
+            { date: '2026-10-27', type: 'election', title: 'Israel Knesset Elections', desc: 'Legislative elections to the Israeli Knesset.' },
+            { date: '2026-11-03', type: 'election', title: 'U.S. Midterm Elections', desc: 'United States Congressional Senate and House elections.' },
+            { date: '2026-11-07', type: 'election', title: 'New Zealand General Election', desc: 'Parliamentary general elections in New Zealand.' },
+            { date: '2026-11-15', type: 'election', title: 'Cape Verde Presidential Election', desc: 'Executive presidential vote in Cape Verde.' },
+            { date: '2026-12-05', type: 'election', title: 'Gambia Presidential Election', desc: 'Presidential election cycle in Gambia.' },
+            { date: '2026-12-22', type: 'election', title: 'South Sudan General Election', desc: 'Presidential, Assembly and Council of States elections.' },
 
-            // Adult / Social / Cultural
-            { date: '02-08', type: 'adult', title: 'Super Bowl Sunday', desc: 'Major sporting and social event.' },
-            { date: '03-17', type: 'adult', title: 'St. Patrick\'s Day', desc: 'Celebrations of Irish culture and heritage.' },
-            { date: '05-05', type: 'adult', title: 'Cinco de Mayo', desc: 'Cultural celebrations.' },
-            { date: '10-31', type: 'adult', title: 'Halloween', desc: 'Festive evening of costumes and gatherings.' },
-            { date: '11-15', type: 'adult', title: 'Grey Cup Sunday', desc: 'The championship game of the Canadian Football League.' },
-            { date: '12-31', type: 'adult', title: 'New Year\'s Eve', desc: 'End of year celebrations.' },
+            // --- 2027 CANADIAN STATUTORY & GLOBAL ELECTIONS ---
+            { date: '2027-01-01', type: 'stat', title: "New Year's Day", desc: 'Beginning of the 2027 calendar year.' },
+            { date: '2027-01-16', type: 'election', title: 'Nigeria General Elections', desc: 'Major African general elections for president and parliament.' },
+            { date: '2027-01-24', type: 'election', title: 'Kyrgyzstan Presidential Election', desc: 'Executive presidential ballot in Kyrgyzstan.' },
+            { date: '2027-02-15', type: 'stat', title: 'Family Day (Provincial)', desc: 'Mid-winter holiday across multiple Canadian provinces.' },
+            { date: '2027-04-02', type: 'stat', title: 'Good Friday', desc: 'National Christian holiday and statutory day.' },
+            { date: '2027-05-17', type: 'stat', title: 'Victoria Day', desc: 'Pan-Canadian holiday celebrating the May long weekend.' },
+            { date: '2027-07-01', type: 'stat', title: 'Canada Day', desc: 'National Confederation Day.' },
+            { date: '2027-09-06', type: 'stat', title: 'Labour Day', desc: 'Celebrating workers on the first Monday of September.' },
+            { date: '2027-10-11', type: 'stat', title: 'Thanksgiving Day', desc: 'Canadian autumn harvest holiday.' },
+            { date: '2027-12-25', type: 'stat', title: 'Christmas Day', desc: 'Statutory holiday.' },
 
-            // Global / Annual Events
-            { date: '02-14', type: 'global', title: 'Valentine\'s Day', desc: 'Global day of romance.' },
-            { date: '03-08', type: 'global', title: 'Intl. Women\'s Day', desc: 'Focal point in the movement for women\'s rights.' },
-            { date: '04-22', type: 'global', title: 'Earth Day', desc: 'Annual event demonstrating support for environmental protection.' },
-            { date: '09-10', type: 'global', title: 'TIFF Begins', desc: 'Toronto International Film Festival opening week.', rangeEnd: '09-20' },
-            { date: '09-24', type: 'global', title: 'UN General Assembly', desc: 'High-level general debate at the United Nations.' },
-            { date: '10-24', type: 'global', title: 'United Nations Day', desc: 'Anniversary of the entry into force of the UN Charter.' },
-            { date: '11-30', type: 'global', title: 'OPEC Summit', desc: 'Bi-annual meeting of petroleum exporting countries.' },
+            // --- SCHOOL & SOCIAL EVENTS ---
+            { date: '2026-03-16', type: 'school', title: 'March Break Begins', desc: 'Ontario student recess week.', rangeEnd: '2026-03-20' },
+            { date: '2026-10-31', type: 'adult', title: 'Halloween', desc: 'Festive costumes and community events.' },
+            { date: '2026-12-31', type: 'adult', title: 'New Year\'s Eve', desc: 'Countdown parties and fireworks.' }
         ];
 
+        // Retrieve custom user logs from localStorage
+        function getCustomLogs() {
+            try {
+                return JSON.parse(localStorage.getItem('two_fur_logs') || '[]');
+            } catch(e) {
+                return [];
+            }
+        }
 
-        // Simple lunar phase approximation
+        // Moon Phase calculator
         function getMoonPhase(year, month, day) {
             let c = e = jd = b = 0;
             if (month < 3) { year--; month += 12; }
             ++month;
             c = 365.25 * year;
             e = 30.6 * month;
-            jd = c + e + day - 694039.09; // jd is total days elapsed
-            jd /= 29.5305882; // divide by the moon cycle
-            b = parseInt(jd); // int(jd) -> b, take integer part
-            jd -= b; // subtract integer part to leave fractional part of original jd
-            b = Math.round(jd * 8); // scale fraction from 0-8 and round
+            jd = c + e + day - 694039.09;
+            jd /= 29.5305882;
+            b = parseInt(jd);
+            jd -= b;
+            b = Math.round(jd * 8);
+            if (b >= 8) b = 0;
             
-            if (b >= 8) b = 0; // 0 and 8 are the same so put them together
-            
-            // Only return significant phases for clarity
             switch (b) {
                 case 0: return { name: 'New Moon', icon: '🌑' };
                 case 2: return { name: 'First Quarter', icon: '🌓' };
@@ -250,39 +333,53 @@
         }
 
         function isDateInRange(targetDate, startStr, endStr) {
-            const year = targetDate.getFullYear();
-            const start = new Date(`${year}-${startStr}T00:00:00`);
-            const end = new Date(`${year}-${endStr}T23:59:59`);
+            const start = new Date(`${startStr}T00:00:00`);
+            const end = new Date(`${endStr}T23:59:59`);
             return targetDate >= start && targetDate <= end;
         }
 
         function getEventsForDate(date) {
-            const monthStr = String(date.getMonth() + 1).padStart(2, '0');
-            const dayStr = String(date.getDate()).padStart(2, '0');
-            const mdStr = `${monthStr}-${dayStr}`;
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            const dateStr = `${yyyy}-${mm}-${dd}`;
             
             let dailyEvents = [];
 
-            // Check standard events and ranges
+            // 1. Static / Holiday / Election Data
             eventData.forEach(event => {
                 if (event.rangeEnd) {
                     if (isDateInRange(date, event.date, event.rangeEnd)) {
-                        // Append (Cont.) if it's not the first day
-                        const titleSuffix = mdStr !== event.date ? ' (Cont.)' : '';
+                        const titleSuffix = dateStr !== event.date ? ' (Cont.)' : '';
                         dailyEvents.push({ ...event, title: event.title + titleSuffix });
                     }
-                } else if (event.date === mdStr) {
+                } else if (event.date === dateStr) {
                     dailyEvents.push(event);
                 }
             });
 
-            // Calculate moon phase
-            const phase = getMoonPhase(date.getFullYear(), date.getMonth() + 1, date.getDate());
+            // 2. Custom User Logs
+            const customLogs = getCustomLogs();
+            customLogs.forEach(log => {
+                if (log.date === dateStr) {
+                    dailyEvents.push({
+                        type: log.category || 'custom',
+                        title: log.title,
+                        desc: log.caption || 'No additional details provided.',
+                        reminder: log.reminder,
+                        isCustom: true,
+                        id: log.id
+                    });
+                }
+            });
+
+            // 3. Moon Phase
+            const phase = getMoonPhase(yyyy, date.getMonth() + 1, date.getDate());
             if (phase) {
                 dailyEvents.push({
                     type: 'moon',
                     title: phase.name,
-                    desc: 'Lunar phase indicator.',
+                    desc: 'Lunar cycle phase.',
                     icon: phase.icon
                 });
             }
@@ -290,12 +387,63 @@
             return dailyEvents;
         }
 
+        // Search functionality
+        function handleSearch(query) {
+            const dropdown = document.getElementById('search-dropdown');
+            const q = query.trim().toLowerCase();
+            
+            if (!q) {
+                dropdown.classList.add('hidden');
+                dropdown.innerHTML = '';
+                return;
+            }
 
+            // Search eventData and custom logs
+            const customLogs = getCustomLogs();
+            const allItems = [...eventData, ...customLogs];
+            
+            const matches = allItems.filter(item => 
+                item.title.toLowerCase().includes(q) || 
+                (item.desc && item.desc.toLowerCase().includes(q)) ||
+                (item.caption && item.caption.toLowerCase().includes(q))
+            );
+
+            if (matches.length === 0) {
+                dropdown.innerHTML = `<div class="p-3 text-xs text-slate-400 italic">No matching holidays or events found.</div>`;
+                dropdown.classList.remove('hidden');
+                return;
+            }
+
+            dropdown.innerHTML = matches.slice(0, 8).map(m => {
+                const targetDateStr = m.date;
+                return `
+                    <div onclick="jumpToDate('${targetDateStr}')" class="p-2.5 hover:bg-white/5 cursor-pointer border-b border-slate-800 text-xs flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-white block">${m.title}</span>
+                            <span class="text-[10px] text-slate-400">${m.date}</span>
+                        </div>
+                        <span class="text-[10px] uppercase px-1.5 py-0.5 rounded bg-brand-red/20 text-brand-red font-bold">${m.type || 'event'}</span>
+                    </div>
+                `;
+            }).join('');
+            dropdown.classList.remove('hidden');
+        }
+
+        function jumpToDate(dateStr) {
+            const parts = dateStr.split('-');
+            if (parts.length === 3) {
+                currentDate = new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, 1);
+                selectDate(new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2])));
+                document.getElementById('event-search').value = '';
+                document.getElementById('search-dropdown').classList.add('hidden');
+            }
+        }
+
+        // Render Calendar Grid
         function renderCalendar() {
             const year = currentDate.getFullYear();
             const month = currentDate.getMonth();
             
-            // Update Header
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             document.getElementById('current-month-display').innerText = `${monthNames[month]} ${year}`;
 
@@ -305,19 +453,16 @@
             const firstDay = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            // Fill empty cells for days before the 1st
             for (let i = 0; i < firstDay; i++) {
                 const emptyCell = document.createElement('div');
                 emptyCell.className = 'bg-brand-navy/30 rounded-lg border border-slate-800/50';
                 grid.appendChild(emptyCell);
             }
 
-            // Fill days
             for (let day = 1; day <= daysInMonth; day++) {
                 const iterDate = new Date(year, month, day);
                 const isSelected = selectedDate.getTime() === iterDate.getTime();
                 
-                // Determine if it's actual today
                 const today = new Date();
                 const isToday = iterDate.getDate() === today.getDate() && 
                                 iterDate.getMonth() === today.getMonth() && 
@@ -329,26 +474,22 @@
                 cell.className = `calendar-cell relative bg-brand-navy border border-slate-700 rounded-lg p-2 cursor-pointer flex flex-col ${isSelected ? 'active' : ''} ${isToday ? 'ring-2 ring-brand-red' : ''}`;
                 cell.onclick = () => selectDate(new Date(year, month, day));
 
-                // Day Number
                 const dayNum = document.createElement('span');
-                dayNum.className = `text-lg font-bold ${isToday ? 'text-brand-red' : 'text-slate-300'} leading-none mb-1`;
+                dayNum.className = `text-sm font-bold ${isToday ? 'text-brand-red' : 'text-slate-300'} leading-none mb-1`;
                 dayNum.innerText = day;
                 cell.appendChild(dayNum);
 
-                // Event Indicators Container
                 const indContainer = document.createElement('div');
                 indContainer.className = 'flex flex-wrap gap-1 mt-auto';
 
-                // Moon phase icon directly in cell
                 const moonEvent = events.find(e => e.type === 'moon');
                 if(moonEvent) {
                      const moonIcon = document.createElement('span');
-                     moonIcon.className = 'absolute top-2 right-2 text-xs opacity-70';
+                     moonIcon.className = 'absolute top-1.5 right-1.5 text-[10px] opacity-70';
                      moonIcon.innerText = moonEvent.icon;
                      cell.appendChild(moonIcon);
                 }
 
-                // Color dots for events
                 events.forEach(e => {
                     if(e.type !== 'moon') {
                         const dot = document.createElement('div');
@@ -363,10 +504,9 @@
             }
         }
 
-
         function selectDate(date) {
             selectedDate = date;
-            renderCalendar(); // Re-render to update selection highlights
+            renderCalendar();
             updateSidebar();
         }
 
@@ -381,12 +521,12 @@
             selectDate(today);
         }
 
+        // Sidebar Update
         function updateSidebar() {
             const sidebarDate = document.getElementById('selected-date-display');
             const sidebarSub = document.getElementById('selected-date-sub');
             const eventList = document.getElementById('event-list');
 
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             sidebarDate.innerText = selectedDate.toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
             sidebarSub.innerText = selectedDate.toLocaleDateString('en-CA', { weekday: 'long', year: 'numeric' });
 
@@ -397,7 +537,7 @@
                 eventList.innerHTML = `
                     <div class="flex flex-col items-center justify-center h-40 text-slate-500 opacity-60">
                         <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <p class="italic text-sm">No major events recorded.</p>
+                        <p class="italic text-sm">No major events or logs on this date.</p>
                     </div>`;
                 return;
             }
@@ -406,22 +546,25 @@
                 const card = document.createElement('div');
                 card.className = 'bg-brand-dark rounded-xl p-4 border border-slate-800 shadow-md relative overflow-hidden group';
                 
-                // Color bar indicator
                 const colorMap = {
                     'stat': 'bg-brand-red',
                     'school': 'bg-brand-blue',
                     'adult': 'bg-brand-gold',
                     'global': 'bg-slate-400',
+                    'election': 'bg-brand-purple',
+                    'custom': 'bg-brand-teal',
                     'moon': 'bg-slate-200'
                 };
                 const colorClass = colorMap[e.type] || 'bg-slate-500';
                 
                 const typeLabel = {
-                    'stat': 'Statutory',
-                    'school': 'Education',
-                    'adult': 'Social/Adult',
-                    'global': 'Global',
-                    'moon': 'Phase'
+                    'stat': 'Statutory Holiday',
+                    'school': 'Education / Break',
+                    'adult': 'Social Event',
+                    'global': 'Global Observance',
+                    'election': 'World Election',
+                    'custom': 'Custom Log',
+                    'moon': 'Lunar Phase'
                 }[e.type];
 
                 card.innerHTML = `
@@ -429,22 +572,79 @@
                     <div class="ml-2">
                         <div class="flex items-center justify-between mb-1">
                             <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${typeLabel}</span>
-                            ${e.icon ? `<span class="text-xl">${e.icon}</span>` : ''}
+                            <div class="flex items-center gap-2">
+                                ${e.reminder ? '<span class="text-[10px] bg-brand-teal/20 text-brand-teal px-1.5 py-0.5 rounded font-bold">Reminder Set</span>' : ''}
+                                ${e.icon ? `<span class="text-xl">${e.icon}</span>` : ''}
+                            </div>
                         </div>
                         <h4 class="text-lg font-bold text-white mb-1 group-hover:text-brand-red transition-colors">${e.title}</h4>
-                        <p class="text-sm text-slate-400 leading-relaxed">${e.desc}</p>
+                        <p class="text-sm text-slate-400 leading-relaxed">${e.desc || e.caption || ''}</p>
+                        ${e.isCustom ? `<button onclick="deleteLog('${e.id}')" class="mt-2 text-[11px] text-red-400 hover:underline">Delete Log</button>` : ''}
                     </div>
                 `;
                 eventList.appendChild(card);
             });
         }
 
-        // Initialize App
+        // Modal Management
+        function openModal() {
+            const modal = document.getElementById('log-modal');
+            const dateInput = document.getElementById('log-date');
+            
+            // Format selectedDate as YYYY-MM-DD for input default
+            const yyyy = selectedDate.getFullYear();
+            const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
+            const dd = String(selectedDate.getDate()).padStart(2, '0');
+            dateInput.value = `${yyyy}-${mm}-${dd}`;
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('log-modal').classList.add('hidden');
+            document.getElementById('log-form').reset();
+        }
+
+        function saveCustomLog(e) {
+            e.preventDefault();
+            const title = document.getElementById('log-title').value.trim();
+            const date = document.getElementById('log-date').value;
+            const category = document.getElementById('log-category').value;
+            const caption = document.getElementById('log-caption').value.trim();
+            const reminder = document.getElementById('log-reminder').checked;
+
+            if(!title || !date) return;
+
+            const newLog = {
+                id: 'log_' + Date.now(),
+                title,
+                date,
+                category,
+                caption,
+                reminder
+            };
+
+            const logs = getCustomLogs();
+            logs.push(newLog);
+            localStorage.setItem('two_fur_logs', JSON.stringify(logs));
+
+            closeModal();
+            jumpToDate(date);
+        }
+
+        function deleteLog(id) {
+            let logs = getCustomLogs();
+            logs = logs.filter(l => l.id !== id);
+            localStorage.setItem('two_fur_logs', JSON.stringify(logs));
+            updateSidebar();
+            renderCalendar();
+        }
+
+        // Initialize App on Load
         window.onload = () => {
             renderCalendar();
             updateSidebar();
         };
-
     </script>
 </body>
 </html>
