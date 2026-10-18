@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two-Fur | Premium Canadian Calendar</title>
+    <title>Two-Fur | Frost & Aurora Edition — Premium Canadian Calendar</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -11,15 +11,15 @@
                 extend: {
                     colors: {
                         brand: {
-                            red: '#C8102E', // Classic Canadian Red
-                            darkred: '#8A0B20',
-                            navy: '#0A1526', // Deep premium navy
-                            blue: '#1D4ED8',
-                            silver: '#E2E8F0',
-                            gold: '#FBBF24',
-                            dark: '#050A14',
-                            purple: '#7C3AED',
-                            teal: '#0D9488'
+                            iceblue: '#38BDF8', // Frosty Winter Cyan
+                            deepblue: '#0B132B', // Deep Arctic Night
+                            midnight: '#04070F', // Absolute Midnight
+                            frost: '#E0F2FE', // Ice White Highlights
+                            aurora: '#10B981', // Northern Lights Emerald
+                            glacier: '#1E293B', // Slate Glacier Cards
+                            silver: '#94A3B8',
+                            purple: '#8B5CF6',
+                            gold: '#F59E0B'
                         }
                     },
                     fontFamily: {
@@ -37,71 +37,92 @@
             height: 8px;
         }
         ::-webkit-scrollbar-track {
-            background: #0A1526; 
+            background: #04070F; 
         }
         ::-webkit-scrollbar-thumb {
-            background: #C8102E; 
+            background: #38BDF8; 
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #8A0B20; 
+            background: #0284C7; 
         }
 
-        /* Calendar Cell Styles */
+        /* Calendar Cell Styles - Winter Theme */
         .calendar-cell {
-            transition: all 0.2s ease-in-out;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(8px);
         }
         .calendar-cell:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(200, 16, 46, 0.2);
-            border-color: #C8102E;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.25);
+            border-color: #38BDF8;
             z-index: 10;
         }
         .calendar-cell.active {
-            border-color: #FBBF24;
-            background: rgba(251, 191, 36, 0.1);
-            box-shadow: inset 0 0 0 1px #FBBF24;
+            border-color: #38BDF8;
+            background: rgba(56, 189, 248, 0.15);
+            box-shadow: inset 0 0 0 1px #38BDF8, 0 4px 20px rgba(56, 189, 248, 0.3);
         }
 
         /* Category Indicators */
-        .indicator-stat { background-color: #C8102E; }
-        .indicator-school { background-color: #1D4ED8; }
-        .indicator-adult { background-color: #FBBF24; }
-        .indicator-global { background-color: #94A3B8; }
-        .indicator-election { background-color: #7C3AED; }
-        .indicator-custom { background-color: #0D9488; }
-        .indicator-moon { background-color: #E2E8F0; border: 1px solid #475569; }
+        .indicator-stat { background-color: #EF4444; box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); }
+        .indicator-school { background-color: #3B82F6; box-shadow: 0 0 8px rgba(59, 130, 246, 0.6); }
+        .indicator-adult { background-color: #F59E0B; box-shadow: 0 0 8px rgba(245, 158, 11, 0.6); }
+        .indicator-global { background-color: #A855F7; box-shadow: 0 0 8px rgba(168, 85, 247, 0.6); }
+        .indicator-election { background-color: #10B981; box-shadow: 0 0 8px rgba(16, 185, 129, 0.6); }
+        .indicator-custom { background-color: #06B6D4; box-shadow: 0 0 8px rgba(6, 182, 212, 0.6); }
+        .indicator-moon { background-color: #F8FAFC; border: 1px solid #64748B; }
         
-        .bg-subtle-pattern {
-            background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
+        /* Winter Frost Background Pattern & Aurora Glow */
+        .bg-winter-pattern {
+            background-color: #04070F;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.06) 0%, transparent 40%),
+                radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 24px 24px;
+        }
+
+        .glass-panel {
+            background: rgba(11, 19, 43, 0.75);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+        }
+
+        .glass-sidebar {
+            background: rgba(7, 12, 27, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
     </style>
 </head>
-<body class="bg-brand-dark text-slate-200 h-screen flex flex-col font-sans overflow-hidden bg-subtle-pattern">
+<body class="bg-winter-pattern text-slate-100 h-screen flex flex-col font-sans overflow-hidden">
 
-    <header class="bg-brand-navy border-b-4 border-brand-red shadow-xl shrink-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-col sm:flex-row justify-between items-center gap-4">
+    <!-- Header: Winter Frost & Aurora Branding -->
+    <header class="glass-panel border-b border-sky-500/30 shadow-2xl shrink-0 relative z-30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col sm:flex-row justify-between items-center gap-4">
             
             <div class="flex items-center gap-4">
-                <!-- SVG Logo: Two-Fur Case -->
+                <!-- SVG Logo: Two-Fur Winter Edition -->
                 <div class="w-16 h-12 relative flex-shrink-0">
-                    <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-lg" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="5" y="15" width="90" height="60" rx="4" fill="#C8102E" stroke="#8A0B20" stroke-width="2"/>
-                        <rect x="5" y="15" width="90" height="15" fill="#8A0B20" opacity="0.5"/>
-                        <rect x="15" y="35" width="70" height="30" rx="2" fill="#FFFFFF"/>
-                        <path d="M50 40 L52 45 L57 44 L54 49 L59 52 L54 54 L55 60 L50 56 L45 60 L46 54 L41 52 L46 49 L43 44 L48 45 Z" fill="#C8102E"/>
-                        <text x="50" y="54" font-family="Impact, sans-serif" font-size="14" fill="#0A1526" text-anchor="middle" font-weight="bold">TWO-FUR</text>
-                        <circle cx="80" cy="25" r="9" fill="#FBBF24" stroke="#FFFFFF" stroke-width="1"/>
-                        <text x="80" y="28" font-family="Arial, sans-serif" font-size="8" fill="#0A1526" text-anchor="middle" font-weight="bold">24</text>
+                    <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="5" y="15" width="90" height="60" rx="8" fill="#0B132B" stroke="#38BDF8" stroke-width="2"/>
+                        <rect x="5" y="15" width="90" height="15" rx="8" fill="#1E293B" opacity="0.8"/>
+                        <rect x="15" y="35" width="70" height="30" rx="4" fill="#04070F" stroke="rgba(56,189,248,0.3)" stroke-width="1"/>
+                        <!-- Snowflake Accent in Logo -->
+                        <path d="M50 40 L50 60 M40 45 L60 55 M40 55 L60 45" stroke="#38BDF8" stroke-width="1.5" stroke-linecap="round"/>
+                        <text x="50" y="55" font-family="Impact, sans-serif" font-size="13" fill="#E0F2FE" text-anchor="middle" font-weight="bold" letter-spacing="1">TWO-FUR</text>
+                        <circle cx="80" cy="25" r="9" fill="#10B981" stroke="#E0F2FE" stroke-width="1"/>
+                        <text x="80" y="28" font-family="Arial, sans-serif" font-size="8" fill="#04070F" text-anchor="middle" font-weight="bold">❄️</text>
                     </svg>
                 </div>
                 
                 <div>
-                    <h1 class="text-2xl font-display tracking-wide text-white uppercase italic drop-shadow-md">
-                        Two-Fur <span class="text-brand-red">Calendar</span>
+                    <h1 class="text-2xl font-display tracking-wider text-white uppercase italic drop-shadow-[0_2px_10px_rgba(56,189,248,0.3)]">
+                        Two-Fur <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400">Calendar</span>
                     </h1>
-                    <p class="text-xs text-brand-silver/70 font-medium">Pan-Canadian Holidays, Global Events & World Elections</p>
+                    <p class="text-xs text-sky-200/70 font-medium tracking-wide">Pan-Canadian Winter Hub, Global Intelligence & 20+ Expanded Holidays</p>
                 </div>
             </div>
 
@@ -109,15 +130,15 @@
             <div class="flex items-center gap-3 w-full sm:w-auto justify-end flex-wrap">
                 <!-- Search Bar -->
                 <div class="relative">
-                    <input type="text" id="event-search" oninput="handleSearch(this.value)" placeholder="Search holidays, global events..." class="bg-brand-dark/80 text-xs text-white border border-slate-700 rounded-lg px-3 py-2 pl-8 focus:outline-none focus:border-brand-red w-48 sm:w-60">
-                    <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="event-search" oninput="handleSearch(this.value)" placeholder="Search winter holidays, global events..." class="bg-brand-midnight/90 text-xs text-white border border-sky-500/30 rounded-xl px-3.5 py-2.5 pl-9 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 w-48 sm:w-64 transition shadow-inner">
+                    <svg class="w-4 h-4 text-sky-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <!-- Search Results Dropdown -->
-                    <div id="search-dropdown" class="absolute left-0 right-0 mt-1 bg-brand-navy border border-slate-700 rounded-lg shadow-2xl max-h-60 overflow-y-auto hidden z-50"></div>
+                    <div id="search-dropdown" class="absolute left-0 right-0 mt-2 glass-panel border border-sky-500/30 rounded-xl shadow-2xl max-h-60 overflow-y-auto hidden z-50"></div>
                 </div>
 
                 <!-- Create Log Button -->
-                <button onclick="openModal()" class="px-3.5 py-2 bg-brand-teal hover:bg-teal-700 text-white text-xs font-bold rounded-lg shadow transition flex items-center gap-1.5 border border-teal-500/30">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <button onclick="openModal()" class="px-4 py-2.5 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg shadow-sky-500/20 transition-all flex items-center gap-2 border border-sky-300/30">
+                    <svg class="w-4 h-4 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Create Log
                 </button>
             </div>
@@ -125,14 +146,14 @@
         </div>
     </header>
 
-    <main class="flex-1 flex overflow-hidden max-w-screen-2xl w-full mx-auto">
+    <main class="flex-1 flex overflow-hidden max-w-screen-2xl w-full mx-auto relative z-10">
         
         <!-- Left: Calendar Area -->
         <div class="flex-1 flex flex-col p-4 sm:p-6 overflow-y-auto">
             
             <!-- Month Nav & Legend Bar -->
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 bg-brand-navy/50 p-3 rounded-lg border border-slate-800">
-                <div class="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 glass-panel p-3.5 rounded-2xl border border-sky-500/20 shadow-xl">
+                <div class="flex flex-wrap gap-3 text-xs font-semibold uppercase tracking-wider text-slate-300">
                     <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-stat"></span> Stat</div>
                     <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-school"></span> School</div>
                     <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full indicator-adult"></span> Social</div>
@@ -143,89 +164,88 @@
 
                 <!-- Month Navigation Controls -->
                 <div class="flex items-center gap-3">
-                    <button onclick="changeMonth(-1)" class="p-1.5 rounded hover:bg-white/10 transition text-brand-silver">
+                    <button onclick="changeMonth(-1)" class="p-2 rounded-xl bg-slate-800/80 hover:bg-sky-500/20 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                     </button>
-                    <h2 id="current-month-display" class="text-lg font-bold text-white w-40 text-center uppercase tracking-widest">Oct 2026</h2>
-                    <button onclick="changeMonth(1)" class="p-1.5 rounded hover:bg-white/10 transition text-brand-silver">
+                    <h2 id="current-month-display" class="text-base font-bold text-white w-44 text-center uppercase tracking-widest drop-shadow">Oct 2026</h2>
+                    <button onclick="changeMonth(1)" class="p-2 rounded-xl bg-slate-800/80 hover:bg-sky-500/20 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                     </button>
-                    <button onclick="goToToday()" class="ml-2 px-3 py-1 bg-brand-red hover:bg-brand-darkred text-white text-xs font-bold rounded shadow transition border border-red-400/30">
+                    <button onclick="goToToday()" class="ml-2 px-3.5 py-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-xs font-bold rounded-xl shadow-md transition border border-sky-400/30">
                         Today
                     </button>
                 </div>
             </div>
 
             <!-- Days of Week Header -->
-            <div class="grid grid-cols-7 gap-2 mb-2 text-center text-sm font-bold text-brand-silver/80">
+            <div class="grid grid-cols-7 gap-2.5 mb-2.5 text-center text-xs font-bold tracking-wider text-sky-300/80">
                 <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
             </div>
 
             <!-- Calendar Grid -->
-            <div id="calendar-grid" class="grid grid-cols-7 gap-2 flex-1 auto-rows-fr">
+            <div id="calendar-grid" class="grid grid-cols-7 gap-2.5 flex-1 auto-rows-fr">
                 <!-- Dynamically populated -->
             </div>
         </div>
 
         <!-- Right: Details Sidebar -->
-        <aside class="w-full sm:w-96 bg-brand-navy border-l border-slate-800 flex flex-col shadow-2xl z-20 shrink-0">
+        <aside class="w-full sm:w-96 glass-sidebar border-l border-sky-500/20 flex flex-col shadow-2xl z-20 shrink-0">
             
-            <div class="p-6 border-b border-slate-800 bg-gradient-to-b from-brand-navy to-brand-dark relative overflow-hidden">
-                <svg class="absolute -bottom-10 -right-10 w-48 h-48 text-brand-red opacity-5" viewBox="0 0 100 100" fill="currentColor">
-                     <path d="M50 10 L55 30 L75 25 L65 45 L85 55 L65 65 L70 90 L50 75 L30 90 L35 65 L15 55 L35 45 L25 25 L45 30 Z"/>
-                </svg>
+            <div class="p-6 border-b border-sky-500/20 bg-gradient-to-b from-brand-deepblue to-brand-midnight relative overflow-hidden">
+                <!-- Winter frost glow background -->
+                <div class="absolute -top-10 -right-10 w-48 h-48 bg-sky-400/10 rounded-full blur-2xl pointer-events-none"></div>
                 
-                <h3 id="selected-date-display" class="text-3xl font-display text-white drop-shadow relative z-10">Select a Date</h3>
-                <p id="selected-date-sub" class="text-brand-silver/60 text-sm mt-1 font-medium relative z-10">Explore events & details</p>
+                <h3 id="selected-date-display" class="text-3xl font-display text-white drop-shadow-md relative z-10">Select a Date</h3>
+                <p id="selected-date-sub" class="text-sky-200/70 text-sm mt-1 font-medium relative z-10">Explore winter holidays & events</p>
             </div>
 
-            <div id="event-list" class="flex-1 overflow-y-auto p-4 space-y-4">
-                <div class="text-center text-slate-500 mt-10 italic">
-                    Click on any date to view holidays, elections, moon phases, and custom logs.
+            <div id="event-list" class="flex-1 overflow-y-auto p-4 space-y-3.5">
+                <div class="text-center text-slate-400 mt-12 italic">
+                    Click on any calendar cell to inspect winter holidays, global intelligence, and custom logs.
                 </div>
             </div>
             
-            <div class="p-4 border-t border-slate-800 bg-brand-dark/50 text-center">
-                <p class="text-xs text-slate-500">Pan-Canadian & Global Intelligence Hub 2026–2027.</p>
+            <div class="p-4 border-t border-sky-500/20 bg-brand-midnight/80 text-center">
+                <p class="text-[11px] text-sky-300/60 font-medium">❄️ Two-Fur Frost & Aurora Edition — 2026–2027 Hub</p>
             </div>
         </aside>
 
     </main>
 
-    <!-- ADVANCED CREATE LOG MODAL (Two-Fur Premium Design) -->
-    <div id="log-modal" class="fixed inset-0 bg-black/75 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-brand-navy border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative overflow-hidden">
+    <!-- ADVANCED CREATE LOG MODAL (Winter Frost Theme) -->
+    <div id="log-modal" class="fixed inset-0 bg-brand-midnight/80 backdrop-blur-md z-50 flex items-center justify-center hidden p-4">
+        <div class="glass-panel border border-sky-500/30 rounded-2xl max-w-lg w-full p-6 shadow-2xl relative overflow-hidden">
             <!-- Decorative Header Accent -->
-            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-brand-teal via-brand-red to-brand-gold"></div>
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-sky-400 via-emerald-400 to-purple-500"></div>
             
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1 rounded-lg hover:bg-slate-800">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors p-1.5 rounded-xl hover:bg-slate-800/80">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
             
-            <div class="flex items-center gap-3 mb-5">
-                <div class="w-10 h-10 rounded-xl bg-brand-teal/20 border border-brand-teal/40 flex items-center justify-center text-brand-teal">
+            <div class="flex items-center gap-3.5 mb-5">
+                <div class="w-11 h-11 rounded-xl bg-sky-500/20 border border-sky-500/40 flex items-center justify-center text-sky-400 shadow-inner">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 </div>
                 <div>
-                    <h3 class="text-xl font-display text-white tracking-wide">Create Custom Log</h3>
-                    <p class="text-xs text-slate-400">Add custom personal logs, reminders, or priority notes.</p>
+                    <h3 class="text-xl font-display text-white tracking-wide">Create Custom Winter Log</h3>
+                    <p class="text-xs text-sky-200/70">Add priority reminders, personal events, or notes.</p>
                 </div>
             </div>
 
             <form id="log-form" onsubmit="saveCustomLog(event)" class="space-y-4 text-xs">
                 <div>
-                    <label class="block font-semibold text-slate-300 mb-1">Event Title <span class="text-brand-red">*</span></label>
-                    <input type="text" id="log-title" required placeholder="e.g. Q3 Financial Review / Project Milestone" class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                    <label class="block font-semibold text-slate-200 mb-1">Event Title <span class="text-sky-400">*</span></label>
+                    <input type="text" id="log-title" required placeholder="e.g. Winter Expedition Planning / Project Milestone" class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Target Date <span class="text-brand-red">*</span></label>
-                        <input type="date" id="log-date" required class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                        <label class="block font-semibold text-slate-200 mb-1">Target Date <span class="text-sky-400">*</span></label>
+                        <input type="date" id="log-date" required class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                     </div>
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Category / Tag</label>
-                        <select id="log-category" class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                        <label class="block font-semibold text-slate-200 mb-1">Category / Tag</label>
+                        <select id="log-category" class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                             <option value="custom">Custom Log</option>
                             <option value="stat">Statutory / Priority</option>
                             <option value="school">Education</option>
@@ -236,12 +256,12 @@
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Time / Duration (Optional)</label>
-                        <input type="text" id="log-time" placeholder="e.g. 10:00 AM - 11:30 AM" class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                        <label class="block font-semibold text-slate-200 mb-1">Time / Duration (Optional)</label>
+                        <input type="text" id="log-time" placeholder="e.g. 10:00 AM - 11:30 AM" class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                     </div>
                     <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Priority Level</label>
-                        <select id="log-priority" class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                        <label class="block font-semibold text-slate-200 mb-1">Priority Level</label>
+                        <select id="log-priority" class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                             <option value="normal">Normal Priority</option>
                             <option value="high">High Priority</option>
                             <option value="urgent">Urgent / Critical</option>
@@ -250,26 +270,26 @@
                 </div>
 
                 <div>
-                    <label class="block font-semibold text-slate-300 mb-1">Location / Venue (Optional)</label>
-                    <input type="text" id="log-location" placeholder="e.g. Ottawa Conference Centre / Zoom" class="w-full bg-brand-dark border border-slate-700 rounded-lg px-3 py-2.5 text-white focus:outline-none focus:border-brand-teal transition">
+                    <label class="block font-semibold text-slate-200 mb-1">Location / Venue (Optional)</label>
+                    <input type="text" id="log-location" placeholder="e.g. Ottawa Conference Centre / Remote" class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl px-3.5 py-2.5 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition">
                 </div>
 
                 <div>
-                    <label class="block font-semibold text-slate-300 mb-1">Details & Caption</label>
-                    <textarea id="log-caption" rows="2" placeholder="Add detailed notes, agenda, or background information..." class="w-full bg-brand-dark border border-slate-700 rounded-lg p-2.5 text-white focus:outline-none focus:border-brand-teal transition"></textarea>
+                    <label class="block font-semibold text-slate-200 mb-1">Details & Caption</label>
+                    <textarea id="log-caption" rows="2" placeholder="Add detailed notes or agenda..." class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl p-3 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition"></textarea>
                 </div>
 
-                <div class="flex items-center gap-3 bg-brand-dark/60 p-3 rounded-lg border border-slate-800">
-                    <input type="checkbox" id="log-reminder" class="w-4 h-4 accent-brand-teal rounded">
+                <div class="flex items-center gap-3 bg-brand-midnight/80 p-3 rounded-xl border border-sky-500/20">
+                    <input type="checkbox" id="log-reminder" class="w-4 h-4 accent-sky-400 rounded">
                     <div>
                         <label for="log-reminder" class="font-bold text-white cursor-pointer">Enable Smart Reminder Badge</label>
-                        <p class="text-[10px] text-slate-400">Highlights this log prominently on the calendar grid sidebar.</p>
+                        <p class="text-[10px] text-sky-300/70">Highlights this log prominently on the calendar sidebar.</p>
                     </div>
                 </div>
 
-                <div class="flex justify-end gap-3 pt-3 border-t border-slate-800">
-                    <button type="button" onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg transition">Cancel</button>
-                    <button type="submit" class="px-5 py-2 bg-brand-teal hover:bg-teal-700 text-white font-bold rounded-lg transition shadow-lg shadow-teal-900/40">Save Log</button>
+                <div class="flex justify-end gap-3 pt-3 border-t border-sky-500/20">
+                    <button type="button" onclick="closeModal()" class="px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-xl transition">Cancel</button>
+                    <button type="submit" class="px-5 py-2.5 bg-gradient-to-r from-sky-500 to-emerald-500 hover:from-sky-400 hover:to-emerald-400 text-slate-950 font-bold rounded-xl transition shadow-lg shadow-sky-500/30">Save Log</button>
                 </div>
             </form>
         </div>
@@ -281,25 +301,31 @@
         let selectedDate = new Date(2026, 9, 9);
         
         // Comprehensive Event Data covering 2026 & 2027 (Statutory, Provincial, Global, Elections)
+        // EXPANDED WITH 20 TOTAL NEW HOLIDAYS (10 Canadian Specific + 10 Worldwide International)
         const eventData = [
-            // --- 5 NEW CANADIAN SPECIFIC HOLIDAYS & OBSERVANCES ---
+            // --- 10 NEW CANADIAN-SPECIFIC HOLIDAYS & NATIONAL OBSERVANCES ---
             { date: '2026-02-15', type: 'stat', title: 'National Flag of Canada Day', desc: 'Commemorating the first official hoisting of the red maple leaf flag in 1965.' },
-            { date: '2026-04-06', type: 'global', title: 'National Tartan Day', desc: 'Celebrating Scottish heritage and cultural contributions across Canada.' },
-            { date: '2026-08-15', type: 'global', title: 'National Acadian Day', desc: 'Celebrating vibrant Acadian culture and identity across the Maritimes and Canada.' },
-            { date: '2026-10-18', type: 'global', title: 'Persons Day', desc: 'Commemorating the landmark 1929 Privy Council decision recognizing women as legal persons.' },
-            { date: '2026-11-08', type: 'stat', title: 'National Indigenous Veterans Day', desc: 'Remembering the extraordinary military contributions of First Nations, Inuit, and Métis service members.' },
+            { date: '2026-04-06', type: 'global', title: 'National Tartan Day', desc: 'Celebrating Scottish heritage, tartans, and cultural contributions across Canada.' },
+            { date: '2026-06-21', type: 'stat', title: 'National Indigenous Peoples Day', desc: 'Recognizing and celebrating the rich history, heritage, and diversity of First Nations, Inuit, and Métis peoples.' },
+            { date: '2026-08-15', type: 'global', title: 'National Acadian Day', desc: 'Celebrating vibrant Acadian culture, unity, and identity across the Maritimes and Canada.' },
+            { date: '2026-10-18', type: 'global', title: 'Persons Day', desc: 'Commemorating the landmark 1929 Privy Council decision recognizing women as legal "persons" under the law.' },
+            { date: '2026-11-08', type: 'stat', title: 'National Indigenous Veterans Day', desc: 'Remembering and honoring the extraordinary military service and sacrifice of First Nations, Inuit, and Métis veterans.' },
+            { date: '2027-02-15', type: 'stat', title: 'National Flag of Canada Day (2027)', desc: 'Anniversary of the Canadian maple leaf flag raising.' },
+            { date: '2027-04-06', type: 'global', title: 'National Tartan Day (2027)', desc: 'Annual Canadian celebration of Scottish ancestry.' },
+            { date: '2027-06-21', type: 'stat', title: 'National Indigenous Peoples Day (2027)', desc: 'Summer solstice celebration honoring Indigenous communities.' },
+            { date: '2027-08-15', type: 'global', title: 'National Acadian Day (2027)', desc: 'Festive celebrations of Acadian heritage across Canada.' },
 
-            // --- 10 NEW WORLDWIDE EVENTS ---
-            { date: '2026-03-08', type: 'global', title: 'International Women\'s Day', desc: 'Global day celebrating the social, economic, cultural, and political achievements of women.' },
-            { date: '2026-04-07', type: 'global', title: 'World Health Day', desc: 'Global health awareness day sponsored by the World Health Organization (WHO).' },
-            { date: '2026-04-22', type: 'global', title: 'Earth Day', desc: 'Worldwide event demonstrating support for environmental protection and sustainability.' },
-            { date: '2026-06-05', type: 'global', title: 'World Environment Day', desc: 'UN flagship day for promoting worldwide environmental awareness and action.' },
-            { date: '2026-06-20', type: 'global', title: 'World Refugee Day', desc: 'International day designated by the United Nations to honor refugees worldwide.' },
-            { date: '2026-09-27', type: 'global', title: 'World Tourism Day', desc: 'Fostering international awareness of tourism\'s social, cultural, and economic value.' },
-            { date: '2026-10-24', type: 'global', title: 'United Nations Day', desc: 'Marking the anniversary of the entry into force of the UN Charter in 1945.' },
-            { date: '2026-12-01', type: 'global', title: 'World AIDS Day', desc: 'Dedicated to raising awareness of the HIV/AIDS pandemic and remembering those lost.' },
-            { date: '2026-12-10', type: 'global', title: 'Human Rights Day', desc: 'Commemorating the adoption of the Universal Declaration of Human Rights.' },
-            { date: '2027-01-24', type: 'global', title: 'International Day of Education', desc: 'Proclaimed by the UN to celebrate the role of education for peace and development.' },
+            // --- 10 NEW WORLDWIDE INTERNATIONAL HOLIDAYS & UN OBSERVANCES ---
+            { date: '2026-03-08', type: 'global', title: 'International Women\'s Day', desc: 'Global day celebrating the social, economic, cultural, and political achievements of women worldwide.' },
+            { date: '2026-04-07', type: 'global', title: 'World Health Day', desc: 'Global health awareness day sponsored by the World Health Organization (WHO) focusing on worldwide wellbeing.' },
+            { date: '2026-04-22', type: 'global', title: 'Earth Day', desc: 'Worldwide event demonstrating global support and action for environmental protection and climate sustainability.' },
+            { date: '2026-06-05', type: 'global', title: 'World Environment Day', desc: 'UN flagship day for encouraging worldwide awareness and action for the protection of our environment.' },
+            { date: '2026-06-20', type: 'global', title: 'World Refugee Day', desc: 'International day designated by the United Nations to honor refugees and displaced people across the globe.' },
+            { date: '2026-09-27', type: 'global', title: 'World Tourism Day', desc: 'Fostering international awareness of tourism\'s social, cultural, political, and economic value.' },
+            { date: '2026-10-24', type: 'global', title: 'United Nations Day', desc: 'Marking the official anniversary of the entry into force of the UN Charter in 1945.' },
+            { date: '2026-12-01', type: 'global', title: 'World AIDS Day', desc: 'Dedicated to raising awareness of the HIV/AIDS pandemic and remembering lives lost.' },
+            { date: '2026-12-10', type: 'global', title: 'Human Rights Day', desc: 'Commemorating the adoption of the Universal Declaration of Human Rights by the UN General Assembly.' },
+            { date: '2027-01-24', type: 'global', title: 'International Day of Education', desc: 'Proclaimed by the UN to celebrate the pivotal role of education in driving global peace and sustainable development.' },
 
             // --- 2026 CANADIAN STATUTORY & PROVINCIAL HOLIDAYS ---
             { date: '2026-01-01', type: 'stat', title: "New Year's Day", desc: 'Ringing in the new year across the True North.' },
@@ -307,7 +333,6 @@
             { date: '2026-04-03', type: 'stat', title: 'Good Friday', desc: 'Statutory holiday observed nationwide.' },
             { date: '2026-04-06', type: 'global', title: 'Easter Monday', desc: 'Federal holiday and observed in several provinces.' },
             { date: '2026-05-18', type: 'stat', title: 'Victoria Day / National Patriots\' Day', desc: 'Celebrating sovereign\'s birthday / Patriotes history in Quebec.' },
-            { date: '2026-06-21', type: 'global', title: 'National Indigenous Peoples Day', desc: 'Recognizing First Nations, Inuit, and Métis cultures.' },
             { date: '2026-06-24', type: 'stat', title: 'Saint-Jean-Baptiste Day', desc: 'Quebec\'s National Holiday celebrating Québécois culture.' },
             { date: '2026-07-01', type: 'stat', title: 'Canada Day & Memorial Day (NL)', desc: 'Anniversary of Confederation & Beaumont-Hamel remembrance.' },
             { date: '2026-07-09', type: 'global', title: 'Nunavut Day', desc: 'Marking the Nunavut Land Claims Agreement.' },
@@ -335,7 +360,6 @@
             { date: '2027-01-01', type: 'stat', title: "New Year's Day", desc: 'Beginning of the 2027 calendar year.' },
             { date: '2027-01-16', type: 'election', title: 'Nigeria General Elections', desc: 'Major African general elections for president and parliament.' },
             { date: '2027-01-24', type: 'election', title: 'Kyrgyzstan Presidential Election', desc: 'Executive presidential ballot in Kyrgyzstan.' },
-            { date: '2027-02-15', type: 'stat', title: 'Family Day (Provincial)', desc: 'Mid-winter holiday across multiple Canadian provinces.' },
             { date: '2027-04-02', type: 'stat', title: 'Good Friday', desc: 'National Christian holiday and statutory day.' },
             { date: '2027-05-17', type: 'stat', title: 'Victoria Day', desc: 'Pan-Canadian holiday celebrating the May long weekend.' },
             { date: '2027-07-01', type: 'stat', title: 'Canada Day', desc: 'National Confederation Day.' },
@@ -460,7 +484,7 @@
             );
 
             if (matches.length === 0) {
-                dropdown.innerHTML = `<div class="p-3 text-xs text-slate-400 italic">No matching holidays or events found.</div>`;
+                dropdown.innerHTML = `<div class="p-3 text-xs text-slate-400 italic">No matching winter holidays or events found.</div>`;
                 dropdown.classList.remove('hidden');
                 return;
             }
@@ -468,12 +492,12 @@
             dropdown.innerHTML = matches.slice(0, 8).map(m => {
                 const targetDateStr = m.date;
                 return `
-                    <div onclick="jumpToDate('${targetDateStr}')" class="p-2.5 hover:bg-white/5 cursor-pointer border-b border-slate-800 text-xs flex justify-between items-center">
+                    <div onclick="jumpToDate('${targetDateStr}')" class="p-2.5 hover:bg-sky-500/10 cursor-pointer border-b border-sky-500/10 text-xs flex justify-between items-center transition">
                         <div>
                             <span class="font-bold text-white block">${m.title}</span>
-                            <span class="text-[10px] text-slate-400">${m.date}</span>
+                            <span class="text-[10px] text-sky-300/60">${m.date}</span>
                         </div>
-                        <span class="text-[10px] uppercase px-1.5 py-0.5 rounded bg-brand-red/20 text-brand-red font-bold">${m.type || 'event'}</span>
+                        <span class="text-[10px] uppercase px-2 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-bold">${m.type || 'event'}</span>
                     </div>
                 `;
             }).join('');
@@ -506,7 +530,7 @@
 
             for (let i = 0; i < firstDay; i++) {
                 const emptyCell = document.createElement('div');
-                emptyCell.className = 'bg-brand-navy/30 rounded-lg border border-slate-800/50';
+                emptyCell.className = 'bg-brand-midnight/30 rounded-2xl border border-sky-500/5';
                 grid.appendChild(emptyCell);
             }
 
@@ -522,11 +546,11 @@
                 const events = getEventsForDate(iterDate);
 
                 const cell = document.createElement('div');
-                cell.className = `calendar-cell relative bg-brand-navy border border-slate-700 rounded-lg p-2 cursor-pointer flex flex-col ${isSelected ? 'active' : ''} ${isToday ? 'ring-2 ring-brand-red' : ''}`;
+                cell.className = `calendar-cell relative glass-panel rounded-2xl p-2.5 cursor-pointer flex flex-col ${isSelected ? 'active' : ''} ${isToday ? 'ring-2 ring-sky-400 shadow-[0_0_15px_rgba(56,189,248,0.4)]' : ''}`;
                 cell.onclick = () => selectDate(new Date(year, month, day));
 
                 const dayNum = document.createElement('span');
-                dayNum.className = `text-sm font-bold ${isToday ? 'text-brand-red' : 'text-slate-300'} leading-none mb-1`;
+                dayNum.className = `text-sm font-bold ${isToday ? 'text-sky-300' : 'text-slate-200'} leading-none mb-1.5`;
                 dayNum.innerText = day;
                 cell.appendChild(dayNum);
 
@@ -536,7 +560,7 @@
                 const moonEvent = events.find(e => e.type === 'moon');
                 if(moonEvent) {
                      const moonIcon = document.createElement('span');
-                     moonIcon.className = 'absolute top-1.5 right-1.5 text-[10px] opacity-70';
+                     moonIcon.className = 'absolute top-2 right-2 text-xs opacity-75';
                      moonIcon.innerText = moonEvent.icon;
                      cell.appendChild(moonIcon);
                 }
@@ -586,24 +610,24 @@
 
             if (events.length === 0) {
                 eventList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-40 text-slate-500 opacity-60">
-                        <svg class="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <p class="italic text-sm">No major events or logs on this date.</p>
+                    <div class="flex flex-col items-center justify-center h-48 text-sky-200/50">
+                        <svg class="w-12 h-12 mb-2 stroke-sky-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <p class="italic text-sm">No major winter holidays or logs on this date.</p>
                     </div>`;
                 return;
             }
 
             events.forEach(e => {
                 const card = document.createElement('div');
-                card.className = 'bg-brand-dark rounded-xl p-4 border border-slate-800 shadow-md relative overflow-hidden group';
+                card.className = 'glass-panel rounded-2xl p-4 border border-sky-500/20 shadow-lg relative overflow-hidden group transition-all hover:border-sky-400/50';
                 
                 const colorMap = {
-                    'stat': 'bg-brand-red',
-                    'school': 'bg-brand-blue',
-                    'adult': 'bg-brand-gold',
-                    'global': 'bg-slate-400',
-                    'election': 'bg-brand-purple',
-                    'custom': 'bg-brand-teal',
+                    'stat': 'bg-red-500',
+                    'school': 'bg-blue-500',
+                    'adult': 'bg-amber-500',
+                    'global': 'bg-purple-500',
+                    'election': 'bg-emerald-500',
+                    'custom': 'bg-cyan-400',
                     'moon': 'bg-slate-200'
                 };
                 const colorClass = colorMap[e.type] || 'bg-slate-500';
@@ -619,24 +643,24 @@
                 }[e.type];
 
                 const priorityBadge = e.priority && e.priority !== 'normal' ? 
-                    `<span class="text-[10px] bg-red-500/20 text-red-400 px-1.5 py-0.5 rounded font-bold uppercase">${e.priority}</span>` : '';
+                    `<span class="text-[10px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-md font-bold uppercase border border-red-500/30">${e.priority}</span>` : '';
 
                 card.innerHTML = `
-                    <div class="absolute left-0 top-0 bottom-0 w-1 ${colorClass}"></div>
-                    <div class="ml-2">
-                        <div class="flex items-center justify-between mb-1">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400">${typeLabel}</span>
+                    <div class="absolute left-0 top-0 bottom-0 w-1.5 ${colorClass} shadow-[0_0_10px_currentColor]"></div>
+                    <div class="ml-2.5">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-sky-300/80">${typeLabel}</span>
                             <div class="flex items-center gap-1.5">
                                 ${priorityBadge}
-                                ${e.reminder ? '<span class="text-[10px] bg-brand-teal/20 text-brand-teal px-1.5 py-0.5 rounded font-bold">Reminder</span>' : ''}
+                                ${e.reminder ? '<span class="text-[10px] bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-md font-bold border border-cyan-500/30">Reminder</span>' : ''}
                                 ${e.icon ? `<span class="text-xl">${e.icon}</span>` : ''}
                             </div>
                         </div>
-                        <h4 class="text-lg font-bold text-white mb-1 group-hover:text-brand-red transition-colors">${e.title}</h4>
-                        ${e.time ? `<div class="text-xs text-brand-gold font-medium mb-1">🕒 ${e.time}</div>` : ''}
-                        ${e.location ? `<div class="text-xs text-brand-silver/80 mb-1">📍 ${e.location}</div>` : ''}
-                        <p class="text-sm text-slate-400 leading-relaxed">${e.desc || e.caption || ''}</p>
-                        ${e.isCustom ? `<button onclick="deleteLog('${e.id}')" class="mt-3 text-[11px] text-red-400 hover:text-red-300 font-semibold underline">Delete Log</button>` : ''}
+                        <h4 class="text-base font-bold text-white mb-1.5 group-hover:text-sky-300 transition-colors">${e.title}</h4>
+                        ${e.time ? `<div class="text-xs text-amber-400 font-medium mb-1 flex items-center gap-1">🕒 ${e.time}</div>` : ''}
+                        ${e.location ? `<div class="text-xs text-sky-200/80 mb-1.5 flex items-center gap-1">📍 ${e.location}</div>` : ''}
+                        <p class="text-xs text-slate-300 leading-relaxed">${e.desc || e.caption || ''}</p>
+                        ${e.isCustom ? `<button onclick="deleteLog('${e.id}')" class="mt-3 text-[11px] text-red-400 hover:text-red-300 font-semibold underline transition">Delete Log</button>` : ''}
                     </div>
                 `;
                 eventList.appendChild(card);
