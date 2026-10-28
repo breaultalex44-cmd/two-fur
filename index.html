@@ -343,9 +343,36 @@
         let selectedDate = new Date(2026, 9, 9);
         
         // Comprehensive Event Data covering 2026 & 2027 (Statutory, Provincial, Global, Elections)
-        // EXPANDED WITH 15 NEW WORLDWIDE FESTIVALS & CULTURAL EVENTS (Total 35+ expanded holidays)
+        // EXPANDED WITH 25 NEW HOLIDAYS & EVENTS (2026-2027)
         const eventData = [
-            // --- 15 NEW WORLDWIDE FESTIVALS & CULTURAL EVENTS ---
+            // --- 25 NEWLY ADDED HOLIDAYS / EVENTS (2026 - 2027) ---
+            { date: '2026-11-05', type: 'global', title: 'Guy Fawkes Night (Bonfire Night - UK & Commonwealth)', desc: 'Traditional British celebration featuring fireworks, bonfires, and effigy burnings.' },
+            { date: '2026-11-20', type: 'global', title: 'World Children\'s Day (UN)', desc: 'Promoting international togetherness, awareness among children worldwide, and improving children\'s welfare.' },
+            { date: '2026-11-27', type: 'global', title: 'Black Friday Global Retail Event', desc: 'Major international shopping holiday following American Thanksgiving.' },
+            { date: '2026-11-30', type: 'global', title: 'St. Andrew\'s Day', desc: 'Patron saint day of Scotland celebrating Scottish culture, piping, and traditional feasting.' },
+            { date: '2026-12-05', type: 'global', title: 'World Soil Day (FAO)', desc: 'Highlighting the importance of sustainable soil management for global agriculture.' },
+            { date: '2026-12-13', type: 'global', title: 'St. Lucia\'s Day (Lucia Celebrations - Scandinavia)', desc: 'Traditional festival of lights celebrated across Sweden and Nordic countries.' },
+            { date: '2026-12-24', type: 'adult', title: 'Christmas Eve Vigil & Gatherings', desc: 'Traditional festive family dinners, carol services, and anticipation of Christmas.' },
+            { date: '2026-12-28', type: 'global', title: 'Proclamation Day (South Australia & Commonwealth)', desc: 'Historical commemoration of the founding of government in South Australia.' },
+            { date: '2027-01-06', type: 'global', title: 'Epiphany / Three Kings Day (Día de los Reyes Magos)', desc: 'Traditional Christian feast day marking the end of the 12 days of Christmas.' },
+            { date: '2027-01-14', type: 'global', title: 'Orthodox New Year (Julian Calendar)', desc: 'New Year celebration observed by Eastern Orthodox communities worldwide.' },
+            { date: '2027-01-26', type: 'global', title: 'Australia Day', desc: 'National day of Australia commemorating the 1788 arrival of the First Fleet at Sydney Cove.' },
+            { date: '2027-02-02', type: 'global', title: 'Groundhog Day', desc: 'North American tradition observing weather prognostications by groundhogs like Punxsutawney Phil.' },
+            { date: '2027-02-14', type: 'adult', title: 'Valentine\'s Day', desc: 'Celebration of romance, affection, and friendship.' },
+            { date: '2027-02-17', type: 'global', title: 'Ash Wednesday (Christian Lent Begins)', desc: 'Solemn Christian holy day of prayer and fasting marking the start of Lent.' },
+            { date: '2027-02-28', type: 'global', title: 'Lunar New Year (Spring Festival)', desc: 'Major East Asian festival welcoming the traditional lunisolar calendar new year.' },
+            { date: '2027-03-01', type: 'global', title: 'St. David\'s Day', desc: 'Feast day of Saint David, the patron saint of Wales.' },
+            { date: '2027-03-14', type: 'global', title: 'Pi Day & International Day of Mathematics', desc: 'Global celebration honoring the mathematical constant pi and mathematical sciences.' },
+            { date: '2027-03-20', type: 'global', title: 'Spring Equinox (Vernal Equinox)', desc: 'Astronomical start of spring in the Northern Hemisphere with equal day and night.' },
+            { date: '2027-03-25', type: 'global', title: 'Greek Independence Day', desc: 'National holiday commemorating the start of the Greek War of Independence in 1821.' },
+            { date: '2027-04-01', type: 'global', title: 'April Fools\' Day', desc: 'Traditional day of playful pranks, hoaxes, and lighthearted humor.' },
+            { date: '2027-04-05', type: 'global', title: 'Easter Monday (2027)', desc: 'Post-Easter Monday federal holiday and statutory observances.' },
+            { date: '2027-04-25', type: 'global', title: 'ANZAC Day (Australia & New Zealand)', desc: 'National day of remembrance honoring Australian and New Zealand armed forces.' },
+            { date: '2027-05-01', type: 'global', title: 'International Workers\' Day (May Day)', desc: 'Global celebration of labor movements and workers\' rights.' },
+            { date: '2027-05-09', type: 'global', title: 'Mother\'s Day (North America)', desc: 'Annual celebration honoring mothers, maternal bonds, and motherhood.' },
+            { date: '2027-05-13', type: 'global', title: 'Ascension Day (Christian Holiday)', desc: 'Traditional Christian feast commemorating the bodily ascension of Jesus into heaven.' },
+
+            // --- EXISTING WORLDWIDE FESTIVALS & CULTURAL EVENTS ---
             { date: '2026-02-17', type: 'global', title: 'Venice Carnival (Carnevale di Venezia)', desc: 'Famous annual festival held in Venice, Italy, renowned for its ornate masks and historic costumes.' },
             { date: '2026-02-20', type: 'global', title: 'Rio de Janeiro Carnival (Brazil)', desc: 'The world\'s biggest carnival celebration featuring iconic samba parades, vibrant floats, and street parties.' },
             { date: '2026-03-17', type: 'global', title: 'St. Patrick\'s Day Global Festival', desc: 'Worldwide celebration of Irish culture, music, and parades originating in Ireland.' },
@@ -362,7 +389,7 @@
             { date: '2026-11-26', type: 'global', title: 'Thanksgiving Day (United States)', desc: 'Traditional American harvest holiday centered around family gratitude and feasts.' },
             { date: '2026-12-21', type: 'global', title: 'Winter Solstice / Yule Celebrations', desc: 'Ancient astronomical festival celebrating the longest night of the year and return of the sun.' },
 
-            // --- 10 NEW CANADIAN-SPECIFIC HOLIDAYS & NATIONAL OBSERVANCES ---
+            // --- CANADIAN-SPECIFIC HOLIDAYS & NATIONAL OBSERVANCES ---
             { date: '2026-02-15', type: 'stat', title: 'National Flag of Canada Day', desc: 'Commemorating the first official hoisting of the red maple leaf flag in 1965.' },
             { date: '2026-04-06', type: 'global', title: 'National Tartan Day', desc: 'Celebrating Scottish heritage, tartans, and cultural contributions across Canada.' },
             { date: '2026-06-21', type: 'stat', title: 'National Indigenous Peoples Day', desc: 'Recognizing and celebrating the rich history, heritage, and diversity of First Nations, Inuit, and Métis peoples.' },
@@ -374,7 +401,7 @@
             { date: '2027-06-21', type: 'stat', title: 'National Indigenous Peoples Day (2027)', desc: 'Summer solstice celebration honoring Indigenous communities.' },
             { date: '2027-08-15', type: 'global', title: 'National Acadian Day (2027)', desc: 'Festive celebrations of Acadian heritage across Canada.' },
 
-            // --- 10 NEW WORLDWIDE INTERNATIONAL HOLIDAYS & UN OBSERVANCES ---
+            // --- WORLDWIDE INTERNATIONAL HOLIDAYS & UN OBSERVANCES ---
             { date: '2026-03-08', type: 'global', title: 'International Women\'s Day', desc: 'Global day celebrating the social, economic, cultural, and political achievements of women worldwide.' },
             { date: '2026-04-07', type: 'global', title: 'World Health Day', desc: 'Global health awareness day sponsored by the World Health Organization (WHO) focusing on worldwide wellbeing.' },
             { date: '2026-04-22', type: 'global', title: 'Earth Day', desc: 'Worldwide event demonstrating global support and action for environmental protection and climate sustainability.' },
