@@ -39,6 +39,7 @@
             height: 100%;
             touch-action: manipulation;
             -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
         }
 
         /* Custom Scrollbar */
@@ -108,22 +109,50 @@
         }
 
         .glass-sidebar {
-            background: rgba(7, 12, 27, 0.95);
+            background: rgba(7, 12, 27, 0.96);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
         }
+
+        /* Mobile Draggable Bottom Sheet Responsive Styles */
+        @media (max-width: 1023px) {
+            #details-sidebar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 75vh;
+                max-height: 85vh;
+                transform: translateY(calc(100% - 72px)); /* Peek state by default */
+                transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+                border-top-left-radius: 1.5rem;
+                border-top-right-radius: 1.5rem;
+                border-top: 1px solid rgba(56, 189, 248, 0.3);
+                box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.8);
+                z-index: 40;
+            }
+            #details-sidebar.sheet-expanded {
+                transform: translateY(0%);
+            }
+            #details-sidebar.sheet-hidden {
+                transform: translateY(100%);
+            }
+            #details-sidebar.dragging {
+                transition: none !important;
+            }
+        }
     </style>
 </head>
-<body class="bg-winter-pattern text-slate-100 h-full flex flex-col font-sans overflow-x-hidden select-none sm:select-text">
+<body class="bg-winter-pattern text-slate-100 h-full flex flex-col font-sans overflow-hidden select-none sm:select-text">
 
     <!-- Header: Winter Frost & Aurora Branding -->
     <header class="glass-panel border-b border-sky-500/30 shadow-2xl shrink-0 relative z-30 pt-safe">
-        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col sm:flex-row justify-between items-center gap-2.5 sm:gap-4">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-2 sm:py-3 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4">
             
             <div class="flex items-center justify-between w-full sm:w-auto">
                 <div class="flex items-center gap-2.5 sm:gap-4">
                     <!-- SVG Logo: Two-Fur Winter Edition -->
-                    <div class="w-12 h-9 sm:w-16 sm:h-12 relative flex-shrink-0">
+                    <div class="w-10 h-8 sm:w-16 sm:h-12 relative flex-shrink-0">
                         <svg viewBox="0 0 100 80" class="w-full h-full drop-shadow-[0_0_12px_rgba(56,189,248,0.4)]" xmlns="http://www.w3.org/2000/svg">
                             <rect x="5" y="15" width="90" height="60" rx="8" fill="#0B132B" stroke="#38BDF8" stroke-width="2"/>
                             <rect x="5" y="15" width="90" height="15" rx="8" fill="#1E293B" opacity="0.8"/>
@@ -137,15 +166,15 @@
                     </div>
                     
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-display tracking-wider text-white uppercase italic drop-shadow-[0_2px_10px_rgba(56,189,248,0.3)] leading-tight">
+                        <h1 class="text-lg sm:text-2xl font-display tracking-wider text-white uppercase italic drop-shadow-[0_2px_10px_rgba(56,189,248,0.3)] leading-tight">
                             Two-Fur <span class="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-emerald-400">Calendar</span>
                         </h1>
-                        <p class="text-[10px] sm:text-xs text-sky-200/70 font-medium tracking-tight sm:tracking-wide">Pan-Canadian Winter Hub & Intelligence</p>
+                        <p class="text-[9px] sm:text-xs text-sky-200/70 font-medium tracking-tight sm:tracking-wide">Pan-Canadian Winter Hub & Intelligence</p>
                     </div>
                 </div>
 
                 <!-- Mobile Quick Action Button for Take a Tok -->
-                <button onclick="openModal()" class="sm:hidden px-3 py-1.5 bg-gradient-to-r from-sky-500 to-emerald-500 active:scale-95 text-slate-950 font-bold text-xs rounded-lg shadow-md flex items-center gap-1 border border-sky-300/30">
+                <button onclick="openModal()" class="sm:hidden px-2.5 py-1.5 bg-gradient-to-r from-sky-500 to-emerald-500 active:scale-95 text-slate-950 font-bold text-xs rounded-lg shadow-md flex items-center gap-1 border border-sky-300/30">
                     <span>+ Tok</span>
                 </button>
             </div>
@@ -154,8 +183,8 @@
             <div class="flex items-center gap-2 sm:gap-3 w-full sm:w-auto justify-between sm:justify-end">
                 <!-- Search Bar -->
                 <div class="relative flex-1 sm:flex-initial">
-                    <input type="text" id="event-search" oninput="handleSearch(this.value)" placeholder="Search winter holidays, festivals..." class="bg-brand-midnight/90 text-xs text-white border border-sky-500/30 rounded-xl px-3 py-2 sm:py-2.5 pl-8 sm:pl-9 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 w-full sm:w-64 transition shadow-inner">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 absolute left-2.5 top-2.5 sm:top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="event-search" oninput="handleSearch(this.value)" placeholder="Search winter holidays, festivals..." class="bg-brand-midnight/90 text-xs text-white border border-sky-500/30 rounded-xl px-3 py-1.5 sm:py-2.5 pl-8 sm:pl-9 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 w-full sm:w-64 transition shadow-inner">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-sky-400 absolute left-2.5 top-2 sm:top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                     <!-- Search Results Dropdown -->
                     <div id="search-dropdown" class="absolute left-0 right-0 mt-2 glass-panel border border-sky-500/30 rounded-xl shadow-2xl max-h-60 overflow-y-auto hidden z-50"></div>
                 </div>
@@ -170,15 +199,15 @@
         </div>
     </header>
 
-    <main class="flex-1 flex flex-col lg:flex-row overflow-y-auto lg:overflow-hidden max-w-screen-2xl w-full mx-auto relative z-10 pb-16 lg:pb-0">
+    <main class="flex-1 flex flex-col lg:flex-row overflow-hidden max-w-screen-2xl w-full mx-auto relative z-10">
         
         <!-- Left: Calendar Area -->
-        <div class="flex-1 flex flex-col p-2.5 sm:p-4 lg:p-6 overflow-y-auto">
+        <div class="flex-1 flex flex-col p-2 sm:p-4 lg:p-6 overflow-y-auto pb-20 lg:pb-6">
             
             <!-- Month Nav & Legend Bar -->
-            <div class="flex flex-col md:flex-row justify-between items-center gap-3 mb-3 sm:mb-4 glass-panel p-2.5 sm:p-3.5 rounded-2xl border border-sky-500/20 shadow-xl">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-2 sm:gap-3 mb-2 sm:mb-4 glass-panel p-2 sm:p-3.5 rounded-2xl border border-sky-500/20 shadow-xl shrink-0">
                 <!-- Legend: Scrollable horizontally on small mobile screens -->
-                <div class="w-full md:w-auto overflow-x-auto no-scrollbar py-1">
+                <div class="w-full md:w-auto overflow-x-auto no-scrollbar py-0.5">
                     <div class="flex items-center gap-2.5 sm:gap-3 text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-slate-300 whitespace-nowrap">
                         <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full indicator-stat"></span> Stat</div>
                         <div class="flex items-center gap-1"><span class="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full indicator-school"></span> School</div>
@@ -192,56 +221,66 @@
                 <!-- Month Navigation Controls -->
                 <div class="flex items-center justify-between w-full md:w-auto gap-2">
                     <div class="flex items-center gap-1.5 sm:gap-3">
-                        <button onclick="changeMonth(-1)" class="p-1.5 sm:p-2 rounded-xl bg-slate-800/80 active:scale-95 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
+                        <button onclick="changeMonth(-1)" class="p-1 sm:p-2 rounded-xl bg-slate-800/80 active:scale-95 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
                             <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                         </button>
-                        <h2 id="current-month-display" class="text-sm sm:text-base font-bold text-white w-32 sm:w-44 text-center uppercase tracking-widest drop-shadow">Oct 2026</h2>
-                        <button onclick="changeMonth(1)" class="p-1.5 sm:p-2 rounded-xl bg-slate-800/80 active:scale-95 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
+                        <h2 id="current-month-display" class="text-xs sm:text-base font-bold text-white w-28 sm:w-44 text-center uppercase tracking-widest drop-shadow">Oct 2026</h2>
+                        <button onclick="changeMonth(1)" class="p-1 sm:p-2 rounded-xl bg-slate-800/80 active:scale-95 text-sky-400 transition border border-slate-700 hover:border-sky-500/50">
                             <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </button>
                     </div>
-                    <button onclick="goToToday()" class="px-3 py-1.5 sm:px-3.5 sm:py-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-[11px] sm:text-xs font-bold rounded-xl shadow-md transition border border-sky-400/30 active:scale-95">
+                    <button onclick="goToToday()" class="px-2.5 py-1 sm:px-3.5 sm:py-2 bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-500 hover:to-blue-500 text-white text-[10px] sm:text-xs font-bold rounded-xl shadow-md transition border border-sky-400/30 active:scale-95">
                         Today
                     </button>
                 </div>
             </div>
 
             <!-- Days of Week Header -->
-            <div class="grid grid-cols-7 gap-1 sm:gap-2.5 mb-1.5 sm:mb-2.5 text-center text-[10px] sm:text-xs font-bold tracking-wider text-sky-300/80">
+            <div class="grid grid-cols-7 gap-1 sm:gap-2.5 mb-1 sm:mb-2 text-center text-[9px] sm:text-xs font-bold tracking-wider text-sky-300/80 shrink-0">
                 <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
             </div>
 
             <!-- Calendar Grid -->
-            <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2.5 min-h-[320px] sm:min-h-[420px] lg:flex-1 auto-rows-fr">
+            <div id="calendar-grid" class="grid grid-cols-7 gap-1 sm:gap-2.5 min-h-[300px] sm:min-h-[420px] flex-1 auto-rows-fr">
                 <!-- Dynamically populated -->
             </div>
         </div>
 
-        <!-- Right / Bottom: Details Sidebar -->
-        <aside id="details-sidebar" class="w-full lg:w-96 glass-sidebar border-t lg:border-t-0 lg:border-l border-sky-500/20 flex flex-col shadow-2xl z-20 shrink-0">
+        <!-- Mobile Backdrop Overlay when Sheet is Expanded -->
+        <div id="sheet-backdrop" onclick="toggleSheet(false)" class="fixed inset-0 bg-brand-midnight/60 backdrop-blur-sm z-30 opacity-0 pointer-events-none transition-opacity duration-200 lg:hidden"></div>
+
+        <!-- Right / Bottom: Details Sidebar (Optimized Draggable Sheet for Mobile) -->
+        <aside id="details-sidebar" class="w-full lg:w-96 glass-sidebar border-t lg:border-t-0 lg:border-l border-sky-500/20 flex flex-col shadow-2xl">
             
-            <div class="p-4 sm:p-6 border-b border-sky-500/20 bg-gradient-to-b from-brand-deepblue to-brand-midnight relative overflow-hidden flex justify-between items-center lg:block">
+            <!-- Mobile Drag Handle Bar -->
+            <div id="drag-handle" class="w-full py-2 flex flex-col items-center justify-center cursor-grab active:cursor-grabbing touch-none lg:hidden shrink-0 bg-gradient-to-b from-brand-deepblue/90 to-transparent">
+                <div class="w-12 h-1.5 bg-sky-400/50 rounded-full shadow-sm mb-1"></div>
+                <div id="drag-hint" class="text-[9px] text-sky-300/60 font-semibold tracking-wider uppercase">Swipe down to view calendar</div>
+            </div>
+
+            <div id="sidebar-header" class="px-4 py-2 sm:p-6 border-b border-sky-500/20 bg-gradient-to-b from-brand-deepblue to-brand-midnight relative overflow-hidden flex justify-between items-center lg:block shrink-0 cursor-pointer lg:cursor-default">
                 <div class="absolute -top-10 -right-10 w-48 h-48 bg-sky-400/10 rounded-full blur-2xl pointer-events-none"></div>
                 
                 <div>
-                    <h3 id="selected-date-display" class="text-2xl sm:text-3xl font-display text-white drop-shadow-md relative z-10">Select a Date</h3>
-                    <p id="selected-date-sub" class="text-sky-200/70 text-xs sm:text-sm mt-0.5 sm:mt-1 font-medium relative z-10">Explore winter holidays & events</p>
+                    <h3 id="selected-date-display" class="text-xl sm:text-3xl font-display text-white drop-shadow-md relative z-10 leading-tight">Select a Date</h3>
+                    <p id="selected-date-sub" class="text-sky-200/70 text-[11px] sm:text-sm mt-0.5 font-medium relative z-10">Explore winter holidays & events</p>
                 </div>
                 
-                <!-- Mobile indicator icon -->
-                <div class="lg:hidden text-sky-400/50">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                </div>
+                <!-- Mobile Toggle Expand / Collapse Icon -->
+                <button id="sheet-toggle-btn" onclick="toggleSheet()" class="lg:hidden text-sky-400 hover:text-white p-1.5 rounded-lg bg-sky-500/10 border border-sky-500/20 active:scale-95 transition">
+                    <svg id="toggle-icon-up" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path></svg>
+                    <svg id="toggle-icon-down" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                </button>
             </div>
 
-            <div id="event-list" class="flex-1 overflow-y-auto p-3.5 sm:p-4 space-y-3 sm:space-y-3.5 max-h-[350px] lg:max-h-none">
-                <div class="text-center text-slate-400 my-8 italic text-xs sm:text-sm">
+            <div id="event-list" class="flex-1 overflow-y-auto p-3 sm:p-4 space-y-2.5 sm:space-y-3.5">
+                <div class="text-center text-slate-400 my-6 italic text-xs sm:text-sm">
                     Tap any calendar cell to inspect winter holidays, global intelligence, and custom logs.
                 </div>
             </div>
             
-            <div class="p-3 sm:p-4 border-t border-sky-500/20 bg-brand-midnight/80 text-center">
-                <p class="text-[10px] sm:text-[11px] text-sky-300/60 font-medium">❄️ Two-Fur Frost & Aurora Edition — 2026–2027 Hub</p>
+            <div class="p-2.5 sm:p-4 border-t border-sky-500/20 bg-brand-midnight/80 text-center shrink-0 pb-safe">
+                <p class="text-[9px] sm:text-[11px] text-sky-300/60 font-medium">❄️ Two-Fur Frost & Aurora Edition — 2026–2027 Hub</p>
             </div>
         </aside>
 
@@ -315,7 +354,7 @@
                     <textarea id="log-caption" rows="2" placeholder="Add specific checklist items, goals, or briefing details..." class="w-full bg-brand-midnight border border-sky-500/30 rounded-xl p-2.5 sm:p-3 text-white focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-400/20 transition text-xs sm:text-sm"></textarea>
                 </div>
 
-                <!-- FIXED: Fully functional persistent reminder badge control -->
+                <!-- Fully functional persistent reminder badge control -->
                 <div class="flex items-center justify-between bg-brand-midnight/90 p-3 sm:p-3.5 rounded-xl border border-sky-500/25">
                     <div class="flex items-center gap-2.5 sm:gap-3">
                         <div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-cyan-500/20 flex items-center justify-center text-cyan-400 shrink-0">
@@ -341,9 +380,9 @@
         // State
         let currentDate = new Date(2026, 9, 9); // Oct 9, 2026 default context
         let selectedDate = new Date(2026, 9, 9);
+        let isSheetExpanded = false;
         
         // Comprehensive Event Data covering 2026 & 2027 (Statutory, Provincial, Global, Elections)
-        // EXPANDED WITH 25 NEW HOLIDAYS & EVENTS (2026-2027)
         const eventData = [
             // --- 25 NEWLY ADDED HOLIDAYS / EVENTS (2026 - 2027) ---
             { date: '2026-11-05', type: 'global', title: 'Guy Fawkes Night (Bonfire Night - UK & Commonwealth)', desc: 'Traditional British celebration featuring fireworks, bonfires, and effigy burnings.' },
@@ -517,7 +556,7 @@
                 }
             });
 
-            // 2. Custom User Logs (Standard date match OR if reminder/always show is pinned)
+            // 2. Custom User Logs
             const customLogs = getCustomLogs();
             customLogs.forEach(log => {
                 const isPinnedAlways = (log.reminder === true || log.reminder === 'true');
@@ -532,7 +571,7 @@
                         reminder: log.reminder,
                         isCustom: true,
                         id: log.id,
-                        logDate: log.date // preserve original target date for reference
+                        logDate: log.date
                     });
                 }
             });
@@ -654,7 +693,6 @@
                 }
 
                 events.forEach(e => {
-                    // Only display indicator dots for true date events or non-pinned entries to keep grid clean
                     if(e.type !== 'moon' && (!e.isCustom || e.logDate === `${iterDate.getFullYear()}-${String(iterDate.getMonth()+1).padStart(2,'0')}-${String(iterDate.getDate()).padStart(2,'0')}`)) {
                         const dot = document.createElement('div');
                         dot.className = `w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full indicator-${e.type}`;
@@ -673,12 +711,9 @@
             renderCalendar();
             updateSidebar();
 
-            // Smooth scroll to sidebar on mobile view
+            // On mobile view, select date brings sheet into comfortable peek view (collapsed state)
             if (window.innerWidth < 1024) {
-                const sidebar = document.getElementById('details-sidebar');
-                if (sidebar) {
-                    sidebar.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
+                toggleSheet(false); // Collapse to peek view so rest of calendar remains clearly visible
             }
         }
 
@@ -693,7 +728,7 @@
             selectDate(today);
         }
 
-        // Sidebar Update & Persistent Pinned Reminder Badge rendering across all dates
+        // Sidebar Update & Event Details rendering
         function updateSidebar() {
             const sidebarDate = document.getElementById('selected-date-display');
             const sidebarSub = document.getElementById('selected-date-sub');
@@ -707,8 +742,8 @@
 
             if (events.length === 0) {
                 eventList.innerHTML = `
-                    <div class="flex flex-col items-center justify-center h-36 sm:h-48 text-sky-200/50">
-                        <svg class="w-10 h-10 sm:w-12 sm:h-12 mb-2 stroke-sky-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    <div class="flex flex-col items-center justify-center h-28 sm:h-48 text-sky-200/50">
+                        <svg class="w-8 h-8 sm:w-12 sm:h-12 mb-2 stroke-sky-400/40" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         <p class="italic text-xs sm:text-sm">No major winter holidays or logs on this date.</p>
                     </div>`;
                 return;
@@ -746,7 +781,6 @@
                 const reminderBadge = isPinned ? 
                     `<span class="text-[9px] sm:text-[10px] bg-cyan-500/30 text-cyan-200 px-2 py-0.5 rounded-md font-bold border border-cyan-400/40 shadow-sm flex items-center gap-1">📌 Pinned</span>` : '';
 
-                // Add date sub-label if a pinned tok is being displayed on a different date than its target date
                 const yyyy = selectedDate.getFullYear();
                 const mm = String(selectedDate.getMonth() + 1).padStart(2, '0');
                 const dd = String(selectedDate.getDate()).padStart(2, '0');
@@ -775,6 +809,122 @@
                 `;
                 eventList.appendChild(card);
             });
+        }
+
+        // MOBILE BOTTOM SHEET INTERACTIVE DRAGGING & COLLAPSE / EXPAND GESTURES
+        function toggleSheet(forceExpand) {
+            const sidebar = document.getElementById('details-sidebar');
+            const backdrop = document.getElementById('sheet-backdrop');
+            const iconUp = document.getElementById('toggle-icon-up');
+            const iconDown = document.getElementById('toggle-icon-down');
+            const hint = document.getElementById('drag-hint');
+
+            if (forceExpand !== undefined) {
+                isSheetExpanded = forceExpand;
+            } else {
+                isSheetExpanded = !isSheetExpanded;
+            }
+
+            sidebar.style.transform = ''; // reset inline drag transform
+
+            if (isSheetExpanded) {
+                sidebar.classList.add('sheet-expanded');
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                iconUp.classList.add('hidden');
+                iconDown.classList.remove('hidden');
+                if (hint) hint.innerText = "Swipe down to collapse";
+            } else {
+                sidebar.classList.remove('sheet-expanded');
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+                iconUp.classList.remove('hidden');
+                iconDown.classList.add('hidden');
+                if (hint) hint.innerText = "Swipe up for event details or down to peek";
+            }
+        }
+
+        // Initialize Touch-Drag Listeners for Mobile Details Drawer
+        function initMobileDragSheet() {
+            const sidebar = document.getElementById('details-sidebar');
+            const dragHandle = document.getElementById('drag-handle');
+            const sidebarHeader = document.getElementById('sidebar-header');
+
+            let startY = 0;
+            let currentY = 0;
+            let isDragging = false;
+            let initialTransformY = 0;
+
+            function getPeekOffset() {
+                // Peek offset corresponds to height of sidebar minus visible header/handle height (~72px)
+                const fullHeight = sidebar.getBoundingClientRect().height;
+                return fullHeight - 72;
+            }
+
+            function onTouchStart(e) {
+                if (window.innerWidth >= 1024) return;
+                const touch = e.touches[0];
+                startY = touch.clientY;
+                currentY = startY;
+                isDragging = true;
+                sidebar.classList.add('dragging');
+
+                // Determine current transform status
+                initialTransformY = isSheetExpanded ? 0 : getPeekOffset();
+            }
+
+            function onTouchMove(e) {
+                if (!isDragging || window.innerWidth >= 1024) return;
+                const touch = e.touches[0];
+                const deltaY = touch.clientY - startY;
+                let newY = initialTransformY + deltaY;
+
+                // Restrict drag boundaries
+                const maxPeek = getPeekOffset();
+                if (newY < 0) newY = newY * 0.2; // Rubberband resistance at top
+                if (newY > maxPeek) newY = maxPeek + (newY - maxPeek) * 0.2;
+
+                sidebar.style.transform = `translateY(${newY}px)`;
+                
+                // Prevent scrolling while dragging drag handles
+                if (e.cancelable) {
+                    e.preventDefault();
+                }
+            }
+
+            function onTouchEnd(e) {
+                if (!isDragging || window.innerWidth >= 1024) return;
+                isDragging = false;
+                sidebar.classList.remove('dragging');
+
+                const touch = e.changedTouches[0];
+                const deltaY = touch.clientY - startY;
+
+                // Threshold check for gesture intent
+                if (deltaY > 50) {
+                    toggleSheet(false); // Dragged down -> Collapse
+                } else if (deltaY < -50) {
+                    toggleSheet(true); // Dragged up -> Expand
+                } else {
+                    toggleSheet(isSheetExpanded); // Revert to prior state
+                }
+            }
+
+            // Attach touch listeners to drag handle & header bar
+            if (dragHandle) {
+                dragHandle.addEventListener('touchstart', onTouchStart, { passive: false });
+                dragHandle.addEventListener('touchmove', onTouchMove, { passive: false });
+                dragHandle.addEventListener('touchend', onTouchEnd);
+            }
+            if (sidebarHeader) {
+                sidebarHeader.addEventListener('touchstart', onTouchStart, { passive: true });
+                sidebarHeader.addEventListener('touchmove', onTouchMove, { passive: false });
+                sidebarHeader.addEventListener('touchend', onTouchEnd);
+                sidebarHeader.addEventListener('click', (e) => {
+                    // Prevent toggle click triggering if dragging occurred
+                    if (window.innerWidth < 1024 && Math.abs(currentY - startY) < 5) {
+                        toggleSheet();
+                    }
+                });
+            }
         }
 
         // Modal Management ("Take a Tok")
@@ -840,6 +990,7 @@
         window.onload = () => {
             renderCalendar();
             updateSidebar();
+            initMobileDragSheet();
         };
     </script>
 </body>
