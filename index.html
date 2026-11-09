@@ -280,7 +280,7 @@
             </div>
             
             <div class="p-2.5 sm:p-4 border-t border-sky-500/20 bg-brand-midnight/80 text-center shrink-0 pb-safe">
-                <p class="text-[9px] sm:text-[11px] text-sky-300/60 font-medium">❄️ Two-Fur Frost & Aurora Edition — 2026–2027 Hub</p>
+                <p class="text-[9px] sm:text-[11px] text-sky-300/60 font-medium">❄️ Two-Fur Frost & Aurora Edition — 2026–2028 Hub</p>
             </div>
         </aside>
 
@@ -382,34 +382,48 @@
         let selectedDate = new Date(2026, 9, 9);
         let isSheetExpanded = false;
         
-        // Comprehensive Event Data covering 2026 & 2027 (Statutory, Provincial, Global, Elections)
+        // Comprehensive Event Data covering 2026, 2027 & 2028 (Statutory, Provincial, Global, Elections)
         const eventData = [
-            // --- 25 NEWLY ADDED HOLIDAYS / EVENTS (2026 - 2027) ---
-            { date: '2026-11-05', type: 'global', title: 'Guy Fawkes Night (Bonfire Night - UK & Commonwealth)', desc: 'Traditional British celebration featuring fireworks, bonfires, and effigy burnings.' },
-            { date: '2026-11-20', type: 'global', title: 'World Children\'s Day (UN)', desc: 'Promoting international togetherness, awareness among children worldwide, and improving children\'s welfare.' },
-            { date: '2026-11-27', type: 'global', title: 'Black Friday Global Retail Event', desc: 'Major international shopping holiday following American Thanksgiving.' },
-            { date: '2026-11-30', type: 'global', title: 'St. Andrew\'s Day', desc: 'Patron saint day of Scotland celebrating Scottish culture, piping, and traditional feasting.' },
-            { date: '2026-12-05', type: 'global', title: 'World Soil Day (FAO)', desc: 'Highlighting the importance of sustainable soil management for global agriculture.' },
-            { date: '2026-12-13', type: 'global', title: 'St. Lucia\'s Day (Lucia Celebrations - Scandinavia)', desc: 'Traditional festival of lights celebrated across Sweden and Nordic countries.' },
-            { date: '2026-12-24', type: 'adult', title: 'Christmas Eve Vigil & Gatherings', desc: 'Traditional festive family dinners, carol services, and anticipation of Christmas.' },
-            { date: '2026-12-28', type: 'global', title: 'Proclamation Day (South Australia & Commonwealth)', desc: 'Historical commemoration of the founding of government in South Australia.' },
-            { date: '2027-01-06', type: 'global', title: 'Epiphany / Three Kings Day (Día de los Reyes Magos)', desc: 'Traditional Christian feast day marking the end of the 12 days of Christmas.' },
-            { date: '2027-01-14', type: 'global', title: 'Orthodox New Year (Julian Calendar)', desc: 'New Year celebration observed by Eastern Orthodox communities worldwide.' },
-            { date: '2027-01-26', type: 'global', title: 'Australia Day', desc: 'National day of Australia commemorating the 1788 arrival of the First Fleet at Sydney Cove.' },
-            { date: '2027-02-02', type: 'global', title: 'Groundhog Day', desc: 'North American tradition observing weather prognostications by groundhogs like Punxsutawney Phil.' },
-            { date: '2027-02-14', type: 'adult', title: 'Valentine\'s Day', desc: 'Celebration of romance, affection, and friendship.' },
-            { date: '2027-02-17', type: 'global', title: 'Ash Wednesday (Christian Lent Begins)', desc: 'Solemn Christian holy day of prayer and fasting marking the start of Lent.' },
-            { date: '2027-02-28', type: 'global', title: 'Lunar New Year (Spring Festival)', desc: 'Major East Asian festival welcoming the traditional lunisolar calendar new year.' },
-            { date: '2027-03-01', type: 'global', title: 'St. David\'s Day', desc: 'Feast day of Saint David, the patron saint of Wales.' },
-            { date: '2027-03-14', type: 'global', title: 'Pi Day & International Day of Mathematics', desc: 'Global celebration honoring the mathematical constant pi and mathematical sciences.' },
-            { date: '2027-03-20', type: 'global', title: 'Spring Equinox (Vernal Equinox)', desc: 'Astronomical start of spring in the Northern Hemisphere with equal day and night.' },
-            { date: '2027-03-25', type: 'global', title: 'Greek Independence Day', desc: 'National holiday commemorating the start of the Greek War of Independence in 1821.' },
-            { date: '2027-04-01', type: 'global', title: 'April Fools\' Day', desc: 'Traditional day of playful pranks, hoaxes, and lighthearted humor.' },
-            { date: '2027-04-05', type: 'global', title: 'Easter Monday (2027)', desc: 'Post-Easter Monday federal holiday and statutory observances.' },
-            { date: '2027-04-25', type: 'global', title: 'ANZAC Day (Australia & New Zealand)', desc: 'National day of remembrance honoring Australian and New Zealand armed forces.' },
-            { date: '2027-05-01', type: 'global', title: 'International Workers\' Day (May Day)', desc: 'Global celebration of labor movements and workers\' rights.' },
-            { date: '2027-05-09', type: 'global', title: 'Mother\'s Day (North America)', desc: 'Annual celebration honoring mothers, maternal bonds, and motherhood.' },
-            { date: '2027-05-13', type: 'global', title: 'Ascension Day (Christian Holiday)', desc: 'Traditional Christian feast commemorating the bodily ascension of Jesus into heaven.' },
+            // --- 5 FILLER HOLIDAYS FOR 2026 (CANADA) ---
+            { date: '2026-11-16', type: 'global', title: 'Louis Riel Day (Metis Nation Commemoration)', desc: 'Honoring the historic leader of the Metis people and defender of rights.' },
+            { date: '2026-11-20', type: 'global', title: 'National Child Day (Canada)', desc: 'Commemorating Canada’s commitment to the UN Convention on the Rights of the Child.' },
+            { date: '2026-12-06', type: 'global', title: 'National Day of Remembrance and Action on Violence Against Women', desc: 'Memorial day marking the École Polytechnique massacre and honoring victims.' },
+            { date: '2026-12-21', type: 'global', title: 'National Winter Solstice & National Homeless Persons\' Memorial Day', desc: 'Marking the longest night of the year and remembering vulnerable community members.' },
+            { date: '2026-12-31', type: 'adult', title: 'New Year\'s Eve Celebrations & Countdown', desc: 'Traditional midnight countdowns and festive gatherings welcoming the new year.' },
+
+            // --- 20 HOLIDAYS FOR 2027 (CANADA STATUTORY & NATIONAL) ---
+            { date: '2027-01-01', type: 'stat', title: 'New Year\'s Day (2027)', desc: 'Federal statutory holiday nationwide.' },
+            { date: '2027-02-15', type: 'stat', title: 'Family Day / Louis Riel Day / Heritage Day (2027)', desc: 'Provincial statutory holiday observed across AB, BC, MB, NB, ON, SK, NS.' },
+            { date: '2027-02-15', type: 'global', title: 'National Flag of Canada Day (2027)', desc: 'Anniversary of the official hoisting of the red maple leaf flag in 1965.' },
+            { date: '2027-03-17', type: 'global', title: 'St. Patrick\'s Day (2027)', desc: 'Cultural and festive celebration of Irish heritage across Canada.' },
+            { date: '2027-03-26', type: 'stat', title: 'Good Friday (2027)', desc: 'Nationwide statutory holiday.' },
+            { date: '2027-03-29', type: 'global', title: 'Easter Monday (2027)', desc: 'Federal statutory holiday and provincial observance.' },
+            { date: '2027-04-23', type: 'global', title: 'St. George\'s Day (2027)', desc: 'Provincial holiday observed in Newfoundland and Labrador.' },
+            { date: '2027-05-24', type: 'stat', title: 'Victoria Day / National Patriots\' Day (2027)', desc: 'Federal holiday celebrating the sovereign\'s birthday and Patriotes history in QC.' },
+            { date: '2027-06-21', type: 'stat', title: 'National Indigenous Peoples Day (2027)', desc: 'Statutory observance in NT and YT honoring First Nations, Inuit, and Métis heritage.' },
+            { date: '2027-06-24', type: 'stat', title: 'Saint-Jean-Baptiste Day (2027)', desc: 'Quebec\'s National Holiday celebrating Québécois culture.' },
+            { date: '2027-07-01', type: 'stat', title: 'Canada Day & Memorial Day (2027)', desc: 'National Confederation Day and Newfoundland remembrance.' },
+            { date: '2027-07-09', type: 'global', title: 'Nunavut Day (2027)', desc: 'Territorial holiday marking the Nunavut Land Claims Agreement.' },
+            { date: '2027-08-02', type: 'stat', title: 'Civic Holiday / BC Day / Heritage Day (2027)', desc: 'August long weekend statutory holiday across ON, BC, SK, NB, NU.' },
+            { date: '2027-08-16', type: 'global', title: 'Discovery Day (2027)', desc: 'Territorial statutory holiday in Yukon.' },
+            { date: '2027-09-06', type: 'stat', title: 'Labour Day (2027)', desc: 'National statutory holiday honoring workers.' },
+            { date: '2027-09-30', type: 'stat', title: 'National Day for Truth and Reconciliation (2027)', desc: 'Federal statutory holiday and provincial observances.' },
+            { date: '2027-10-11', type: 'stat', title: 'Thanksgiving Day (2027)', desc: 'Canadian autumn harvest statutory holiday.' },
+            { date: '2027-11-11', type: 'stat', title: 'Remembrance Day (2027)', desc: 'Federal statutory holiday honoring armed forces members.' },
+            { date: '2027-12-25', type: 'stat', title: 'Christmas Day (2027)', desc: 'National statutory holiday.' },
+            { date: '2027-12-26', type: 'stat', title: 'Boxing Day (2027)', desc: 'Statutory holiday observed in Ontario and Newfoundland.' },
+
+            // --- 10 HOLIDAYS FOR 2028 (CANADA STATUTORY & NATIONAL) ---
+            { date: '2028-01-01', type: 'stat', title: 'New Year\'s Day (2028)', desc: 'Nationwide statutory holiday (observed Jan 3).' },
+            { date: '2028-02-21', type: 'stat', title: 'Family Day / Louis Riel Day / Heritage Day (2028)', desc: 'Provincial statutory holiday across AB, BC, MB, NB, ON, SK, NS.' },
+            { date: '2028-04-14', type: 'stat', title: 'Good Friday (2028)', desc: 'National statutory holiday across Canada.' },
+            { date: '2028-04-17', type: 'global', title: 'Easter Monday (2028)', desc: 'Federal statutory holiday and provincial observances.' },
+            { date: '2028-05-22', type: 'stat', title: 'Victoria Day / National Patriots\' Day (2028)', desc: 'Federal holiday celebrating the sovereign\'s birthday.' },
+            { date: '2028-07-01', type: 'stat', title: 'Canada Day (2028)', desc: 'National Confederation Day (observed July 3).' },
+            { date: '2028-08-07', type: 'stat', title: 'Civic Holiday / BC Day / Heritage Day (2028)', desc: 'Summer long weekend statutory holiday across ON, BC, SK, NB.' },
+            { date: '2028-09-04', type: 'stat', title: 'Labour Day (2028)', desc: 'National statutory holiday honoring workers.' },
+            { date: '2028-10-09', type: 'stat', title: 'Thanksgiving Day (2028)', desc: 'Canadian autumn harvest statutory holiday.' },
+            { date: '2028-12-25', type: 'stat', title: 'Christmas Day (2028)', desc: 'National statutory holiday.' },
 
             // --- EXISTING WORLDWIDE FESTIVALS & CULTURAL EVENTS ---
             { date: '2026-02-17', type: 'global', title: 'Venice Carnival (Carnevale di Venezia)', desc: 'Famous annual festival held in Venice, Italy, renowned for its ornate masks and historic costumes.' },
@@ -435,10 +449,6 @@
             { date: '2026-08-15', type: 'global', title: 'National Acadian Day', desc: 'Celebrating vibrant Acadian culture, unity, and identity across the Maritimes and Canada.' },
             { date: '2026-10-18', type: 'global', title: 'Persons Day', desc: 'Commemorating the landmark 1929 Privy Council decision recognizing women as legal "persons" under the law.' },
             { date: '2026-11-08', type: 'stat', title: 'National Indigenous Veterans Day', desc: 'Remembering and honoring the extraordinary military service and sacrifice of First Nations, Inuit, and Métis veterans.' },
-            { date: '2027-02-15', type: 'stat', title: 'National Flag of Canada Day (2027)', desc: 'Anniversary of the Canadian maple leaf flag raising.' },
-            { date: '2027-04-06', type: 'global', title: 'National Tartan Day (2027)', desc: 'Annual Canadian celebration of Scottish ancestry.' },
-            { date: '2027-06-21', type: 'stat', title: 'National Indigenous Peoples Day (2027)', desc: 'Summer solstice celebration honoring Indigenous communities.' },
-            { date: '2027-08-15', type: 'global', title: 'National Acadian Day (2027)', desc: 'Festive celebrations of Acadian heritage across Canada.' },
 
             // --- WORLDWIDE INTERNATIONAL HOLIDAYS & UN OBSERVANCES ---
             { date: '2026-03-08', type: 'global', title: 'International Women\'s Day', desc: 'Global day celebrating the social, economic, cultural, and political achievements of women worldwide.' },
@@ -450,7 +460,6 @@
             { date: '2026-10-24', type: 'global', title: 'United Nations Day', desc: 'Marking the official anniversary of the entry into force of the UN Charter in 1945.' },
             { date: '2026-12-01', type: 'global', title: 'World AIDS Day', desc: 'Dedicated to raising awareness of the HIV/AIDS pandemic and remembering lives lost.' },
             { date: '2026-12-10', type: 'global', title: 'Human Rights Day', desc: 'Commemorating the adoption of the Universal Declaration of Human Rights by the UN General Assembly.' },
-            { date: '2027-01-24', type: 'global', title: 'International Day of Education', desc: 'Proclaimed by the UN to celebrate the pivotal role of education in driving global peace and sustainable development.' },
 
             // --- 2026 CANADIAN STATUTORY & PROVINCIAL HOLIDAYS ---
             { date: '2026-01-01', type: 'stat', title: "New Year's Day", desc: 'Ringing in the new year across the True North.' },
@@ -481,21 +490,9 @@
             { date: '2026-12-05', type: 'election', title: 'Gambia Presidential Election', desc: 'Presidential election cycle in Gambia.' },
             { date: '2026-12-22', type: 'election', title: 'South Sudan General Election', desc: 'Presidential, Assembly and Council of States elections.' },
 
-            // --- 2027 CANADIAN STATUTORY & GLOBAL ELECTIONS ---
-            { date: '2027-01-01', type: 'stat', title: "New Year's Day", desc: 'Beginning of the 2027 calendar year.' },
-            { date: '2027-01-16', type: 'election', title: 'Nigeria General Elections', desc: 'Major African general elections for president and parliament.' },
-            { date: '2027-01-24', type: 'election', title: 'Kyrgyzstan Presidential Election', desc: 'Executive presidential ballot in Kyrgyzstan.' },
-            { date: '2027-04-02', type: 'stat', title: 'Good Friday', desc: 'National Christian holiday and statutory day.' },
-            { date: '2027-05-17', type: 'stat', title: 'Victoria Day', desc: 'Pan-Canadian holiday celebrating the May long weekend.' },
-            { date: '2027-07-01', type: 'stat', title: 'Canada Day', desc: 'National Confederation Day.' },
-            { date: '2027-09-06', type: 'stat', title: 'Labour Day', desc: 'Celebrating workers on the first Monday of September.' },
-            { date: '2027-10-11', type: 'stat', title: 'Thanksgiving Day', desc: 'Canadian autumn harvest holiday.' },
-            { date: '2027-12-25', type: 'stat', title: 'Christmas Day', desc: 'Statutory holiday.' },
-
             // --- SCHOOL & SOCIAL EVENTS ---
             { date: '2026-03-16', type: 'school', title: 'March Break Begins', desc: 'Ontario student recess week.', rangeEnd: '2026-03-20' },
-            { date: '2026-10-31', type: 'adult', title: 'Halloween', desc: 'Festive costumes and community events.' },
-            { date: '2026-12-31', type: 'adult', title: 'New Year\'s Eve', desc: 'Countdown parties and fireworks.' }
+            { date: '2026-10-31', type: 'adult', title: 'Halloween', desc: 'Festive costumes and community events.' }
         ];
 
         // Retrieve custom user logs from localStorage safely
