@@ -18,7 +18,7 @@
 ## ✨ Key Features & Capabilities
 
 ### 📅 1. Comprehensive Pan-Canadian & Global Intelligence
-- **Canadian Statutory & Provincial Holidays:** Full, accurate coverage across all provinces and territories for 2026 and 2027.
+- **Canadian Statutory & Provincial Holidays:** Extended full coverage across all Canadian provinces and territories spanning **2026, 2027, and 2028** (including 20 statutory & national holidays for 2027, 10 for 2028, and complete late-2026 coverage).
 - **15+ Worldwide Cultural Festivals:** Integrated tracking for iconic global celebrations including *Venice Carnival, Rio Carnival, Holi Festival of Colors, Songkran, Oktoberfest, Diwali, and Día de los Muertos*.
 - **World Elections & Global Observances:** Stay informed on international electoral shifts, UN observances, and historic milestones.
 - **Lunar Phase Engine:** Real-time astronomical calculation of moon phases (*New Moon, First Quarter, Full Moon, Last Quarter*) rendered directly on calendar cells.
@@ -26,7 +26,7 @@
 ### 📝 2. "Take a Tok" Dynamic Event Creator
 - **Custom Event Logging:** Instantly log personal tasks, operational briefings, or social events with category tagging, priority levels, time windows, and locations.
 - **Persistent Pinned Badges:** Pin critical tasks across all calendar views with custom highlighted badges.
-- **Zero-Backend Local Persistence:** All custom logs are encrypted in client memory and stored reliably via the browser's `localStorage` API.
+- **Zero-Backend Local Persistence:** All custom logs are stored reliably in browser memory via the `localStorage` API.
 
 ### 🔍 3. Real-Time Global Search
 - Instant keyword filtering across holidays, festivals, custom logs, and detailed intelligence summaries, complete with one-tap date jumping.
